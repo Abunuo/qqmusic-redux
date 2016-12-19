@@ -1,0 +1,121 @@
+.top_songlist {
+	position: relative;
+	width: 100%;
+}
+
+.top_songlist thead{
+	height: 50px;
+	line-height: 50px;
+	background-color: #fbfbfd;
+	color: #999
+}
+
+
+.top_songlist tbody tr{
+	height: 80px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 14px;
+}
+
+.top_songlist_header_count,.top_songlist_count {
+	width: 45px;
+	text-align: right;
+	font-size: 24px;
+	color: #333
+}
+
+.top_songlist_count_top {
+	color: #ff4222
+}
+
+.top_songlist_header_rank,.top_songlist_rank {
+	width: 72px;
+	font-size: 12px;
+	line-height: 20px;
+	text-align: center;
+	color: #999
+}
+
+.icon_rank_down,.icon_rank_keep,.icon_rank_new,.icon_rank_popular,.icon_rank_re,.icon_rank_up {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url(//y.gtimg.cn/mediastyle/yqq/img/icon_rank.png?max_age=2592000&v=a4df626c2c09dd0a7fa0a34716f5673c);
+	background-image: -webkit-image-set(url(//y.gtimg.cn/mediastyle/yqq/img/icon_rank.png?max_age=2592000&v=a4df626c2c09dd0a7fa0a34716f5673c) 1x,url(//y.gtimg.cn/mediastyle/yqq/img/icon_rank@2x.png?max_age=2592000&v=a4df626c2c09dd0a7fa0a34716f5673c&v=300a447d4febafd3c7f7f6215d691e2d) 2x)
+}
+
+.icon_rank_keep {
+	width: 14px;
+	height: 3px;
+	background-position: 0 -30px
+}
+
+.icon_rank_up {
+	width: 14px;
+	height: 13px;
+	margin-top: 4px;
+	background-position: 0 0
+}
+
+.icon_rank_down {
+	width: 14px;
+	height: 13px;
+	margin-top: 4px;
+	background-position: 0 -15px
+}
+
+.icon_rank_new {
+	width: 23px;
+	height: 8px;
+	margin-top: 4px;
+	background-position: 0 -40px
+}
+
+.icon_rank_popular {
+	width: 15px;
+	height: 15px;
+	margin-top: 4px;
+	background-position: 0 -60px
+}
+
+.top_songlist_header_song,.top_songlist_song {
+	padding-left: 20px;
+}
+
+.top_songlist_song_photo {
+	width: 70px;
+	height: 70px;
+	margin-top: 5px;
+	float: left;
+}
+
+.top_songlist_songname {
+	display: inline-block;
+	height: 80px;
+	line-height: 80px;
+	margin-left: 20px;
+	cursor: pointer;
+}
+
+.top_songlist_songname:hover {
+	color: #31c27c;
+}
+
+.top_songlist_header_singer,.top_songlist_singer,.top_songlist_header_time,.top_songlist_time {
+	padding-left: 20px;
+}
+
+.top_songlist_time {
+	color: #999;
+	padding-right: 20px;
+}
+
+.top_songlist tbody tr td a{
+	cursor: pointer;
+}
+
+.top_songlist tbody tr td a:hover{
+	color: #31c27c;
+}

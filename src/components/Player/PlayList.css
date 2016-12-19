@@ -1,0 +1,108 @@
+.playlist {
+	display: block;
+	width: 600px;
+	height: 500px;
+	position: absolute;
+	bottom: 100%;
+	right: 0;
+	box-shadow: 0 -3px 5px #9C9C9C;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background-color: #2D2F33;
+	overflow-y: auto;
+}
+
+.playlist thead{
+	height: 35px;
+	line-height: 35px;
+	background-color: #292B2F;
+	color: #999;
+	cursor: default;
+}
+
+.playlist_item_even {
+	background-color: #2D2F33;
+}
+
+.playlist_item_odd {
+	background-color: #313337;
+}
+
+.playlist tbody td{
+	line-height: 30px;
+	height: 30px;
+	font-size: 13px;
+	color: #999;
+	position: relative;
+	cursor: default;
+}
+
+.playlist tbody td a{
+	width: 100%;
+}
+
+.playlist_header_count,.playlist_count {
+	width: 30px;
+	text-align: center;
+}
+
+.playlist_count_playing {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	width: 10px;
+	height: 10px;
+	background: url(//y.gtimg.cn/mediastyle/yqq/img/wave.gif) 0 0 no-repeat;
+	text-indent: -99px;
+	overflow: hidden
+}
+
+.playlist_header_songname,.playlist_songname {
+	width: 250px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.playlist_album,.playlist_singer,.playlist_header_album,.playlist_header_singer {
+	padding-left: 15px;
+	width: 110px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.playlist_header_time,.playlist_time {
+	padding-left: 15px;
+	width: 55px;
+}
+
+.playlist_header_delete,.playlist_delete {
+	padding-right: 10px;
+	padding-left: 15px;
+	width: 45px;
+}
+
+.playlist_delete_icon {
+	width: 20px;
+	height: 20px;
+	background-image: url(//y.gtimg.cn/mediastyle/yqq/img/icon_list_menu.png?max_age=2592000&v=873fb6560497db4abbe63767018022eb);
+	background-image: -webkit-image-set(url(//y.gtimg.cn/mediastyle/yqq/img/icon_list_menu.png?max_age=2592000&v=873fb6560497db4abbe63767018022eb) 1x,url(//y.gtimg.cn/mediastyle/yqq/img/icon_list_menu@2x.png?max_age=2592000&v=873fb6560497db4abbe63767018022eb&v=5b2eee44c015947ffe8d44c5b69fd078) 2x);
+	background-position: -88px -168px;
+	cursor: pointer;
+	opacity: .8;
+	filter: alpha(opacity=80);
+}
+
+.playlist_delete_icon:hover {
+	opacity: 1;
+	filter: none
+}
+
+.playlist tbody tr td a{
+	cursor: pointer;
+	color: #999;
+}
+
+.playlist tbody tr td a:hover{
+	color: #DCDDE4;
+}

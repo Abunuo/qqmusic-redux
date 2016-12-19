@@ -1,0 +1,60 @@
+.songlist {
+	position: relative;
+	width: 100%;
+}
+
+.songlist thead{
+	height: 50px;
+	line-height: 50px;
+	background-color: #fbfbfd;
+	color: #999;
+	cursor: default;
+}
+
+
+.songlist tbody tr{
+	line-height: 40px;
+	height: 40px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 14px;
+}
+
+.songlist_header_songname,.songlist_songname {
+	padding-left: 20px;
+}
+
+.songlist_songname {
+	cursor: pointer;
+}
+
+.songlist_songname:hover {
+	color: #31c27c;
+}
+
+.songlist_album,.songlist_singer,.songlist_header_album,.songlist_header_singer {
+	padding-left: 20px;
+}
+
+.songlist_header_time,.songlist_time {
+	padding-right: 20px;
+	padding-left: 20px;
+	width: 80px;
+}
+
+.songlist_time {
+	color: #999
+}
+
+.songlist tbody tr td a{
+	cursor: pointer;
+}
+
+.songlist tbody tr td a:hover{
+	color: #31c27c;
+}
+
+.songlist tbody tr td span{
+	color: #31c27c;
+}

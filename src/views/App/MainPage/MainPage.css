@@ -1,0 +1,16 @@
+.main_page {
+	position: absolute;
+	width: 100%;
+	top: 70px;
+	bottom: 53px;
+}
+
+.main_sub_page {
+	width: auto;
+	position: absolute;
+	top: 0;
+	left: 140px;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}

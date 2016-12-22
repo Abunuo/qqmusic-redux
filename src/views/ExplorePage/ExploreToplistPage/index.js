@@ -16,30 +16,32 @@ const TOP_TYPE = ['top', 'global'];
 class ExploreToplistPage extends Component {
 
 	componentWillMount() {
-		const {toplist, loadToplistAll} = this.props;
-		if (!toplist) {
+		const {toplistAll, loadToplistAll} = this.props;
+		if (!toplistAll) {
 			loadToplistAll();
 		}
 	}
 
 	render() {
-		const {toplist} = this.props;
-		if (toplist) {
+		const {toplistAll} = this.props;
+		if (toplistAll) {
 			return (
 				<div className="explore_toplist_page_wrap">
 					{
-						toplist.map((list, i) => (
-							<div key={i}>
-								<h1>{list.GroupName}</h1>
-								{
-									list.List.map((item, i) => (
-										<Link to={`/toplist/${item.topID}?date=${item.update_key}&type=${TOP_TYPE[item.type]}`} key={i}>
-											<TopCard data={item}/>
-										</Link>
-									))
-								}
-							</div>
-						))
+						toplistAll.map((list, i) => {
+							return (
+								<div key={i}>
+									<h1>{list.GroupName}</h1>
+									{
+										list.List.map((item, i) => (
+											<Link to={`/toplist/${item.topID}?date=${item.update_key}&type=${TOP_TYPE[item.type]}`} key={i}>
+												<TopCard data={item}/>
+											</Link>
+										))
+									}
+								</div>
+							)
+						})
 					}
 				</div>
 			)
@@ -56,7 +58,7 @@ class ExploreToplistPage extends Component {
 const mapStateToProps = createSelector(
 	getToplist,
 	(toplist) => ({
-		toplist: toplist.all
+		toplistAll: toplist.all
 	})
 );
 

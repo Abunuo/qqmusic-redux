@@ -9,7 +9,7 @@ import {singerActions, getSinger} from '../../../core/singer';
 import {playerActions} from '../../../core/player';
 import SongList from '../../../components/SongList';
 import PageNav from '../../../components/PageNav';
-import {LOAD_SINGER_SONG_CONFIG} from '../../../core/constants';
+import {API_SINGER_SONG_CONFIG} from '../../../core/constants';
 import {getPathLastFromProps} from '../../../core/utils';
 
 import './SingerSongPage.css';
@@ -22,7 +22,6 @@ export class SingerSongPage extends Component {
 
 		if (!song.lastFetchMid || song.lastFetchMid !== mid) {
 			loadSingerSong({
-				...LOAD_SINGER_SONG_CONFIG,
 				singermid: mid
 			})
 		}
@@ -35,7 +34,6 @@ export class SingerSongPage extends Component {
 			const mid = getPathLastFromProps(nextProps);
 
 			loadSingerSong({
-				...LOAD_SINGER_SONG_CONFIG,
 				singermid: mid
 			})
 		}
@@ -45,11 +43,10 @@ export class SingerSongPage extends Component {
 		const {loadSingerSong, song: {begin}} = this.props;
 		const mid = getPathLastFromProps(this.props);
 		const value = e.target.getAttribute('value');
-		const {num} = LOAD_SINGER_SONG_CONFIG;
+		const {num} = API_SINGER_SONG_CONFIG;
 
 		if (value) {
 			loadSingerSong({
-				...LOAD_SINGER_SONG_CONFIG,
 				begin: value === 'next' ? begin + num : value === 'prev' ? begin - num : (value - 1) * num,
 				singermid: mid
 			})
@@ -59,8 +56,9 @@ export class SingerSongPage extends Component {
 	render() {
 		if (this.props.song.data) {
 			const {begin, data: {list, total}} = this.props.song;
-			const totalpage = Math.ceil(total / LOAD_SINGER_SONG_CONFIG.num);
-			const curpage = Math.floor(begin / LOAD_SINGER_SONG_CONFIG.num) + 1;
+			const {num} = API_SINGER_SONG_CONFIG;
+			const totalpage = Math.ceil(total / num);
+			const curpage = Math.floor(begin / num) + 1;
 
 			return (
 				<div className="singer_songlist_wrap">

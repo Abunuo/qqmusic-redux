@@ -39,12 +39,10 @@ class ToplistPage extends Component {
 
 		if (finded) {
 			let info = {};
-			for (let i = all.length; i--; ) {
-				info = findFromAll(all[i], topid);
-				if (info) {
-					break;
-				}
-			}
+			all.forEach((item) => {
+				info = findFromAll(item, topid);
+				return !info;
+			});
 
 			const {headPic_v12, ListName} = info;
 

@@ -8,8 +8,10 @@ import {
 	API_SEARCH_HOT_URL,
 	API_SEARCH_URL,
 	API_SINGER_SONG_URL,
+	API_SINGER_SONG_CONFIG,
 	API_SINGER_DATA_URL,
 	API_SINGER_ALBUM_URL,
+	API_SINGER_ALBUM_CONFIG,
 	API_SINGER_SIMILAR_URL,
 	API_ALBUM_URL,
 	API_TOPLIST_ALL_URL,
@@ -57,6 +59,7 @@ export const api = {
 		return dispatch(
 			API_SINGER_SONG_URL,
 			{
+				...API_SINGER_SONG_CONFIG,
 				...param
 			},
 			{
@@ -81,6 +84,7 @@ export const api = {
 		return dispatch(
 			API_SINGER_ALBUM_URL,
 			{
+				...API_SINGER_ALBUM_CONFIG,
 				...param
 			},
 			{

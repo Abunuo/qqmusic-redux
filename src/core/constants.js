@@ -6,10 +6,38 @@ export const API_SEARCH_SUGGEST_URL = '//c.y.qq.com/splcloud/fcgi-bin/smartbox_n
 export const API_SEARCH_HOT_URL = '//c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg';
 export const API_SEARCH_URL = '//c.y.qq.com/soso/fcgi-bin/search_cp';
 
+export const LOAD_SEARCH_ALBUM_CONFIG = {
+	catZhida: 1,
+	p: 1,
+	n: 20,
+	t: 8
+};
+
+export const LOAD_SEARCH_SONG_CONFIG = {
+	catZhida: 1,
+	p: 1,
+	n: 20,
+	cr: 1,
+	t: 0
+	//aggr: 1
+};
+
 
 export const API_SINGER_SONG_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg';
+export const API_SINGER_SONG_CONFIG = {
+	num: 30,
+	begin: 0,
+	order: 'listen'
+};
+
 export const API_SINGER_DATA_URL = `${API_SINGER_SONG_URL}?num=1&from=h5`;
 export const API_SINGER_ALBUM_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_singer_album.fcg';
+export const API_SINGER_ALBUM_CONFIG = {
+	num: 30,
+	begin: 0,
+	order: 'time'
+};
+
 export const API_SINGER_SIMILAR_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_simsinger.fcg?format=jsonp';
 
 
@@ -48,31 +76,3 @@ export const SINGER_PHOTO_300_URL = '//y.gtimg.cn/music/photo_new/T001R300x300M0
 
 
 export const PLAY_MODE = ['order', 'random', 'single', 'list']; // order 顺序播放 random 随机播放 single 单曲循环 list 列表循环
-
-export const LOAD_SINGER_SONG_CONFIG = {
-	num: 30,
-	begin: 0,
-	order: 'listen'
-};
-
-export const LOAD_SINGER_ALBUM_CONFIG = {
-	num: 30,
-	begin: 0,
-	order: 'time'
-};
-
-export const LOAD_SEARCH_SONG_CONFIG = {
-	catZhida: 1,
-	p: 1,
-	n: 20,
-	cr: 1,
-	t: 0
-	//aggr: 1
-};
-
-export const LOAD_SEARCH_ALBUM_CONFIG = {
-	catZhida: 1,
-	p: 1,
-	n: 20,
-	t: 8
-};

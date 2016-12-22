@@ -11,7 +11,7 @@ import {createSelector} from 'reselect';
 import {singerActions, getSinger} from '../../../core/singer';
 import AlbumList from '../../../components/AlbumList';
 import PageNav from '../../../components/PageNav';
-import {LOAD_SINGER_ALBUM_CONFIG} from '../../../core/constants';
+import {API_SINGER_ALBUM_CONFIG} from '../../../core/constants';
 import {getPathLastFromProps} from '../../../core/utils';
 
 import './SingerAlbumPage.css';
@@ -24,7 +24,6 @@ export class SingerAlbumPage extends Component {
 
 		if (!album.lastFetchMid || album.lastFetchMid !== mid) {
 			loadSingerAlbum({
-				...LOAD_SINGER_ALBUM_CONFIG,
 				singermid: mid
 			})
 		}
@@ -37,7 +36,6 @@ export class SingerAlbumPage extends Component {
 			const mid = getPathLastFromProps(nextProps);
 
 			loadSingerAlbum({
-				...LOAD_SINGER_ALBUM_CONFIG,
 				singermid: mid
 			})
 		}
@@ -50,8 +48,7 @@ export class SingerAlbumPage extends Component {
 
 		if (value) {
 			loadSingerAlbum({
-				...LOAD_SINGER_ALBUM_CONFIG,
-				begin: (value - 1) * LOAD_SINGER_ALBUM_CONFIG.num,
+				begin: (value - 1) * API_SINGER_ALBUM_CONFIG.num,
 				singermid: mid
 			})
 		}
@@ -60,8 +57,9 @@ export class SingerAlbumPage extends Component {
 	render() {
 		if (this.props.album.data) {
 			const {begin, data: {list, total}} = this.props.album;
-			const totalpage = Math.ceil(total / LOAD_SINGER_ALBUM_CONFIG.num);
-			const curpage = Math.floor(begin / LOAD_SINGER_ALBUM_CONFIG.num) + 1;
+			const {num} = API_SINGER_ALBUM_CONFIG;
+			const totalpage = Math.ceil(total / num);
+			const curpage = Math.floor(begin / num) + 1;
 
 			return (
 				<div className="singer_albumlist_wrap">

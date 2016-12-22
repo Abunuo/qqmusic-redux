@@ -21,7 +21,7 @@ export function toplistReducer(state = new ToplistState(), action) {
 		case toplistActions.FETCH_TOPLIST_FULFILLED:
 			const {result, param, type} = payload;
 			if (type === 'all') {
-				return state.set('all', [
+				return state.set('all', List.of(
 					{
 						...result[0],
 						List: new List(result[0].List)
@@ -30,7 +30,7 @@ export function toplistReducer(state = new ToplistState(), action) {
 						...result[1],
 						List: new List(result[1].List)
 					}
-				]);
+				));
 			} else if (type === 'one') {
 				if (!state.lists.find((list) => (param.topid === list.topid && param.date === list.date))) {
 					return state.set('lists', state.lists.push({

@@ -14,12 +14,12 @@ import './AlbumSongPage.css';
 export class AlbumSongPage extends Component {
 
 	render() {
-		const {album} = this.props;
+		const {album, playSelectedSong} = this.props;
 
 		if (album) {
 			return (
 				<div className="album_songlist_wrap">
-					<SongList datas={album.list} playSelectedSong={this.props.playSelectedSong}/>
+					<SongList datas={album.list} playSelectedSong={playSelectedSong}/>
 				</div>
 			)
 		} else {

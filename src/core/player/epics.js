@@ -116,14 +116,14 @@ function playPrevSong(action$, state) {
 			return Observable.merge(
 				Observable.of(playerActions.loadSong(playList.get(index))),
 				Observable.of(playerActions.playSong())
-			)
+			);
 		});
 }
 
 function seekTime(action$) {
 	return action$.ofType(playerActions.SEEK_TIME)
 		.do(({payload}) => {
-			audio.seek(payload.time)
+			audio.seek(payload.time);
 		})
 		.skip();
 }
@@ -131,7 +131,7 @@ function seekTime(action$) {
 function setVolume(action$) {
 	return action$.ofType(playerActions.SET_VOLUME)
 		.do(({payload}) => {
-			audio.setVolume(payload.volume)
+			audio.setVolume(payload.volume);
 		})
 		.skip();
 }
@@ -139,7 +139,7 @@ function setVolume(action$) {
 function mute(action$) {
 	return action$.ofType(playerActions.MUTE)
 		.do(({payload}) => {
-			audio.mute(payload.muted)
+			audio.mute(payload.muted);
 		})
 		.skip();
 }
@@ -182,7 +182,7 @@ function audioEnded(action$, state) {
 				return Observable.merge(
 					Observable.of(playerActions.loadSong(song)),
 					Observable.of(playerActions.playSong())
-				)
+				);
 			}
 
 		});
@@ -190,7 +190,7 @@ function audioEnded(action$, state) {
 
 function deleteSong(action$, state) {
 	return action$.ofType(playerActions.DELETE_SONG)
-		.switchMap(() => Observable.of(localStoreActions.saveToLocal('playList', state.getState().player.playList.toJS())))
+		.switchMap(() => Observable.of(localStoreActions.saveToLocal('playList', state.getState().player.playList.toJS())));
 }
 
 export const playerEpics = [

@@ -18,10 +18,10 @@ export class AlbumPage extends Component {
 
 	componentWillMount() {
 		const mid = getPathLastFromProps(this.props);
-		const {album} = this.props;
+		const {album, loadAlbum} = this.props;
 
 		if (!album || album.mid !== mid) {
-			this.props.loadAlbum({
+			loadAlbum({
 				albummid: mid
 			});
 		}

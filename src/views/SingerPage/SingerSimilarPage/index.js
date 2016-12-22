@@ -37,7 +37,7 @@ export class SingerSimilarPage extends Component {
 				<div className="singerlist_wrap">
 					<ul>
 						{items.map((singer, i) => {
-							const {pic, name, mid} = singer
+							const {pic, name, mid} = singer;
 							return (
 								<li key={i} className="singer_list_item">
 									<div className="singer_list_item_box">

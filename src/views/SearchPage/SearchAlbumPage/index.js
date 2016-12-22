@@ -15,7 +15,7 @@ import './SearchAlbumPage.css';
 export class SearchAlbumPage extends Component {
 
 	componentWillMount() {
-		const {search: {pending, album}, loadSearch, location: {query: {q}}} = this.props;
+		const {pending, album, loadSearch, location: {query: {q}}} = this.props;
 
 		if (!pending && (!album || album.keyword !== q)) {
 			loadSearch({
@@ -26,7 +26,7 @@ export class SearchAlbumPage extends Component {
 	}
 
 	handleNavClick(e) {
-		const {loadSearch, location: {query: {q}}, album: {album: {curpage}}} = this.props;
+		const {loadSearch, location: {query: {q}}, album: {curpage}} = this.props;
 		const value = e.target.getAttribute('value');
 
 		if (value) {
@@ -39,8 +39,9 @@ export class SearchAlbumPage extends Component {
 	}
 
 	render() {
-		if (this.props.album) {
-			const {album: {curpage, list, totalnum}, keyword} = this.props.album;
+		const {album} = this.props;
+		if (album) {
+			const {album: {curpage, list, totalnum}, keyword} = album;
 			const totalpage = Math.ceil(totalnum / 20);
 
 			return (
@@ -60,10 +61,10 @@ export class SearchAlbumPage extends Component {
 const mapStateToProps = createSelector(
 	getSearch,
 	(search) => {
-		const {album} = search
+		const {album, pending} = search;
 		return {
 			album: album && album.toJS(),
-			search: search.toJS()
+			pending: pending
 		}
 	}
 );

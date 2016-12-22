@@ -16,7 +16,7 @@ import './SearchSongPage.css';
 export class SearchSongPage extends Component {
 
 	componentWillMount() {
-		const {search: {pending, song}, loadSearch, location: {query: {q}}} = this.props;
+		const {pending, song, loadSearch, location: {query: {q}}} = this.props;
 
 		if (!pending && (!song || song.keyword !== q)) {
 			loadSearch({
@@ -60,12 +60,14 @@ export class SearchSongPage extends Component {
 }
 
 const mapStateToProps = createSelector(
-	getSearchSong,
 	getSearch,
-	(song, search) => ({
-		song: song && song.toJS(),
-		search: search.toJS()
-	})
+	(search) => {
+		const {song, pending} = search;
+		return {
+			song: song && song.toJS(),
+			pending: pending
+		}
+	}
 );
 
 const mapDispatchToProps = {

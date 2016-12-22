@@ -43,7 +43,7 @@ const TypeMap = {
 	7: 'lyric',
 	8: 'album',
 	12: 'mv'
-}
+};
 
 export function loadSearch(action$) {
 	return action$.ofType(searchActions.LOAD_SEARCH)

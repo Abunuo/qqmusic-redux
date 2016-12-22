@@ -34,7 +34,7 @@ class ExploreToplistPage extends Component {
 								{
 									list.List.map((item, i) => (
 										<Link to={`/toplist/${item.topID}?date=${item.update_key}&type=${TOP_TYPE[item.type]}`} key={i}>
-											<TopCard data={item}></TopCard>
+											<TopCard data={item}/>
 										</Link>
 									))
 								}

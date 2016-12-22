@@ -5,11 +5,7 @@ export const routes = {
 	component: require('./views/App').default,
 	childRoutes: [
 		{
-			//path: '/',
 			component: require('./views/App/MainPage').default,
-			/*indexRoute: {
-				component: require('./views/ExplorePage').default
-			},*/
 			childRoutes: [
 				{
 					path: '/',
@@ -20,6 +16,7 @@ export const routes = {
 					childRoutes: [
 						{
 							path: 'singerlist',
+							//component: require('./views/ExplorePage/ExploreSingerPage').default
 							getComponent(nextState, cb) {
 								require.ensure([], (require) => {
 									cb(null, require('./views/ExplorePage/ExploreSingerPage').default)
@@ -28,6 +25,7 @@ export const routes = {
 						},
 						{
 							path: 'albumlist',
+							//component: require('./views/ExplorePage/ExploreAlbumPage').default
 							getComponent(nextState, cb) {
 								require.ensure([], (require) => {
 									cb(null, require('./views/ExplorePage/ExploreAlbumPage').default)
@@ -38,6 +36,7 @@ export const routes = {
 				},
 				{
 					path: 'mvlist',
+					//component: require('./views/MVListPage').default
 					getComponent(nextState, cb) {
 						require.ensure([], (require) => {
 							cb(null, require('./views/MVListPage').default)
@@ -46,6 +45,7 @@ export const routes = {
 				},
 				{
 					path: 'singer',
+					//component: require('./views/SingerPage').default,
 					getComponent(nextState, cb) {
 						require.ensure([], (require) => {
 							cb(null, require('./views/SingerPage').default)
@@ -54,6 +54,7 @@ export const routes = {
 					childRoutes: [
 						{
 							path: 'song/:mid',
+							//component: require('./views/SingerPage/SingerSongPage').default
 							getComponent(nextState, cb) {
 								require.ensure([], (require) => {
 									cb(null, require('./views/SingerPage/SingerSongPage').default)
@@ -62,6 +63,7 @@ export const routes = {
 						},
 						{
 							path: 'album/:mid',
+							//component: require('./views/SingerPage/SingerAlbumPage').default
 							getComponent(nextState, cb) {
 								require.ensure([], (require) => {
 									cb(null, require('./views/SingerPage/SingerAlbumPage').default)
@@ -70,6 +72,7 @@ export const routes = {
 						},
 						{
 							path: 'mv/:mid',
+							//component: require('./views/SingerPage/SingerMVPage').default
 							getComponent(nextState, cb) {
 								require.ensure([], (require) => {
 									cb(null, require('./views/SingerPage/SingerMVPage').default)
@@ -78,6 +81,7 @@ export const routes = {
 						},
 						{
 							path: 'similar/:mid',
+							//component: require('./views/SingerPage/SingerSimilarPage').default
 							getComponent(nextState, cb) {
 								require.ensure([], (require) => {
 									cb(null, require('./views/SingerPage/SingerSimilarPage').default)
@@ -88,6 +92,7 @@ export const routes = {
 				},
 				{
 					path: 'toplist/:mid',
+					//component: require('./views/ToplistPage').default
 					getComponent(nextState, cb) {
 						require.ensure([], (require) => {
 							cb(null, require('./views/ToplistPage').default)
@@ -96,6 +101,7 @@ export const routes = {
 				},
 				{
 					path: 'album',
+					//component: require('./views/AlbumPage').default,
 					getComponent(nextState, cb) {
 						require.ensure([], (require) => {
 							cb(null, require('./views/AlbumPage').default)
@@ -104,6 +110,7 @@ export const routes = {
 					childRoutes: [
 						{
 							path: 'song/:mid',
+							//component: require('./views/AlbumPage/AlbumSongPage').default
 							getComponent(nextState, cb) {
 								require.ensure([], (require) => {
 									cb(null, require('./views/AlbumPage/AlbumSongPage').default)
@@ -112,6 +119,7 @@ export const routes = {
 						},
 						{
 							path: 'data/:mid',
+							//component: require('./views/AlbumPage/AlbumDataPage').default
 							getComponent(nextState, cb) {
 								require.ensure([], (require) => {
 									cb(null, require('./views/AlbumPage/AlbumDataPage').default)
@@ -122,6 +130,7 @@ export const routes = {
 				},
 				{
 					path: 'mv/:mid',
+					//component: require('./views/MVPage').default
 					getComponent(nextState, cb) {
 						require.ensure([], (require) => {
 							cb(null, require('./views/MVPage').default)
@@ -131,38 +140,18 @@ export const routes = {
 				{
 					path: 'search',
 					component: require('./views/SearchPage').default,
-					/*getComponent(nextState, cb) {
-						require.ensure([], (require) => {
-							cb(null, require('./views/SearchPage').default)
-						}, 'SearchPage');
-					},*/
 					childRoutes: [
 						{
 							path: 'song',
 							component: require('./views/SearchPage/SearchSongPage').default
-							/*getComponent(nextState, cb) {
-								require.ensure([], (require) => {
-									cb(null, require('./views/SearchPage/SearchSongPage').default)
-								}, 'SearchSongPage');
-							}*/
 						},
 						{
 							path: 'album',
 							component: require('./views/SearchPage/SearchAlbumPage').default
-							/*getComponent(nextState, cb) {
-								require.ensure([], (require) => {
-									cb(null, require('./views/SearchPage/SearchAlbumPage').default)
-								}, 'SearchAlbumPage');
-							}*/
 						},
 						{
 							path: 'mv',
 							component: require('./views/SearchPage/SearchMVPage').default
-							/*getComponent(nextState, cb) {
-								require.ensure([], (require) => {
-									cb(null, require('./views/SearchPage/SearchMVPage').default)
-								}, 'SearchMVPage');
-							}*/
 						}
 					]
 				}
@@ -170,11 +159,12 @@ export const routes = {
 		},
 		{
 			path: 'play',
-			getComponent(nextState, cb) {
+			component: require('./views/PlayPage').default
+			/*getComponent(nextState, cb) {
 				require.ensure([], (require) => {
 					cb(null, require('./views/PlayPage').default)
 				}, 'PlayPage');
-			}
+			}*/
 		}
 	]
 };

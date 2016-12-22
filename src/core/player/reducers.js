@@ -60,7 +60,22 @@ export function playerReducer(state = new PlayerState(), {payload, type}) {
 				return state;
 			} else {
 				const {data, musicData} = payload;
-				return state.set('playList', playList.push(data || musicData || payload));
+				const {
+					interval,
+					singer,
+					songname,
+					albummid,
+					songid,
+					albumname
+				} = data || musicData ||payload;
+				return state.set('playList', playList.push({
+					interval,
+					singer,
+					songname,
+					albummid,
+					songid,
+					albumname
+				}));
 			}
 
 		case playerActions.SET_VOLUME:
@@ -72,7 +87,7 @@ export function playerReducer(state = new PlayerState(), {payload, type}) {
 		case playerActions.SWITCH_PLAYMODE:
 			index = PLAY_MODE.indexOf(playMode);
 			if (index < PLAY_MODE.length - 1) {
-				index++
+				index++;
 			} else {
 				index = 0;
 			}
@@ -87,6 +102,10 @@ export function playerReducer(state = new PlayerState(), {payload, type}) {
 				return state.set('playList', playList.delete(index));
 			}
 			return state;
+
+		case playerActions.ADD_SONGLIST:
+			const {songList, isReplace} = payload;
+			return state.set('playList', isReplace ? new List(songList) : playList.concat(songList));
 
 		default:
 			return state;

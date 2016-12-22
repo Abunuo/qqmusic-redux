@@ -8,6 +8,7 @@ import {singerEpics} from './singer';
 import {albumEpics} from './album';
 import {playerEpics} from './player';
 import {toplistEpics} from './toplist';
+import {localStoreEpics} from './localstore';
 
 export default combineEpics(
 	...navigateEpics,
@@ -15,5 +16,6 @@ export default combineEpics(
 	...singerEpics,
 	...albumEpics,
 	...playerEpics,
-	...toplistEpics
+	...toplistEpics,
+	...localStoreEpics
 );

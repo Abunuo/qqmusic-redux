@@ -5,7 +5,8 @@ import {Observable} from 'rxjs/Observable';
 
 import {playerActions} from './actions';
 import {audio} from './audio-service';
-import {fetchSongInfo} from '../../core/api'
+import {fetchSongInfo} from '../api'
+import {localStoreActions} from '../localstore';
 
 function loadSong(actions$) {
 	return actions$.ofType(playerActions.LOAD_SONG)
@@ -31,7 +32,7 @@ function pauseSong(action$) {
 		.skip();
 }
 
-function playSelectedSong(action$) {
+function playSelectedSong(action$, state) {
 	return action$.ofType(playerActions.PLAY_SELECTED_SONG)
 		.map(({payload}) => {
 			if (payload.isMid) {
@@ -51,9 +52,10 @@ function playSelectedSong(action$) {
 				})
 					.filter(({type}) => type === playerActions.FETCH_SONG_INFO_FULFILLED)
 					.switchMap(({payload: {result: {data}}}) => {
-						const {name: songname, album: {mid: albummid, name: albumname}, id: songid} = data[0];
+						const {name: songname, album: {mid: albummid, name: albumname}, id: songid, singer, interval} = data[0];
 						return Observable.of(playerActions.playSelectedSong({
-							...data[0],
+							interval,
+							singer,
 							songname,
 							albummid,
 							songid,
@@ -63,7 +65,8 @@ function playSelectedSong(action$) {
 			} else {
 				return Observable.merge(
 					Observable.of(playerActions.loadSong(payload)),
-					Observable.of(playerActions.playSong())
+					Observable.of(playerActions.playSong()),
+					Observable.of(localStoreActions.saveToLocal('playList', state.getState().player.playList.toJS()))
 				)
 			}
 		});
@@ -185,6 +188,11 @@ function audioEnded(action$, state) {
 		});
 }
 
+function deleteSong(action$, state) {
+	return action$.ofType(playerActions.DELETE_SONG)
+		.switchMap(() => Observable.of(localStoreActions.saveToLocal('playList', state.getState().player.playList.toJS())))
+}
+
 export const playerEpics = [
 	loadSong,
 	playSong,
@@ -195,5 +203,6 @@ export const playerEpics = [
 	seekTime,
 	setVolume,
 	mute,
-	audioEnded
+	audioEnded,
+	deleteSong
 ];

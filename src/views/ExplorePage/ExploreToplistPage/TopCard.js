@@ -12,7 +12,7 @@ export const TopCard = ({data}) => (
 			{data.songlist.map((song, i) => {
 				return (
 					<div key={i} className="explore_toplist_card_song">
-						<span className="color_gray">{i}&nbsp;&nbsp;</span>
+						<span className="color_gray">{i + 1}&nbsp;&nbsp;</span>
 						<span>{entityReplace(song.songname)}</span>
 						<span className="color_gray">&nbsp;-&nbsp;</span>
 						<span className="color_gray">{entityReplace(song.singername)}</span>

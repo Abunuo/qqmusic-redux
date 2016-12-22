@@ -6,11 +6,14 @@ import {syncHistoryWithStore} from 'react-router-redux';
 
 import Root from './views/Root';
 import configureStore from './core/store';
+import {localStoreActions} from './core/localstore';
 
 import './index.css';
 
 export const store = configureStore();
 export const dispatch = store.dispatch;
+
+dispatch(localStoreActions.loadPlayList());
 
 const history = syncHistoryWithStore(browserHistory, store);
 

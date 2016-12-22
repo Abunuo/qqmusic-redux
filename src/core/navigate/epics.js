@@ -32,7 +32,7 @@ export function navigateToSearch(action$) {
 					Observable.of(push(pathname))
 				)
 			}
-		})
+		});
 		//.map(action => push(action.payload.pathname));
 }
 

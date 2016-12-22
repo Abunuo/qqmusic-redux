@@ -21,6 +21,7 @@ export const playerActions = {
 	SWITCH_PLAYMODE: 'SWITCH_PLAYMODE',
 	SHOW_PLAYLIST: 'SHOW_PLAYLIST',
 	DELETE_SONG: 'DELETE_SONG',
+	ADD_SONGLIST: 'ADD_SONGLIST',
 
 	FETCH_SONG_INFO_FAILED: 'FETCH_SONG_INFO_FAILED',
 	FETCH_SONG_INFO_FULFILLED: 'FETCH_SONG_INFO_FULFILLED',
@@ -101,6 +102,14 @@ export const playerActions = {
 
 	playPrevSong: () => ({
 		type: playerActions.PLAY_PREV_SONG
+	}),
+
+	addSongList: (songList, isReplace) => ({
+		type: playerActions.ADD_SONGLIST,
+		payload: {
+			songList,
+			isReplace
+		}
 	}),
 
 	seekTime: time => ({

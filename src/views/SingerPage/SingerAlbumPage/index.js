@@ -7,8 +7,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
+import {is} from 'immutable';
 
-import {singerActions, getSinger} from '../../../core/singer';
+import {singerActions, getSingerAlbumData, getSingerAlbumLastMid, getSingerAlbumBegin} from '../../../core/singer';
 import AlbumList from '../../../components/AlbumList';
 import PageNav from '../../../components/PageNav';
 import {API_SINGER_ALBUM_CONFIG} from '../../../core/constants';
@@ -19,12 +20,13 @@ import './SingerAlbumPage.css';
 export class SingerAlbumPage extends Component {
 
 	componentWillMount() {
-		const {loadSingerAlbum, album} = this.props;
+		const {loadSingerAlbum, lastFetchMid} = this.props;
 		const mid = getPathLastFromProps(this.props);
 
-		if (!album.lastFetchMid || album.lastFetchMid !== mid) {
+		if (!lastFetchMid || lastFetchMid !== mid) {
 			loadSingerAlbum({
-				singermid: mid
+				singermid: mid,
+				begin: 0
 			})
 		}
 	}
@@ -36,7 +38,8 @@ export class SingerAlbumPage extends Component {
 			const mid = getPathLastFromProps(nextProps);
 
 			loadSingerAlbum({
-				singermid: mid
+				singermid: mid,
+				begin: 0
 			})
 		}
 	}
@@ -54,9 +57,14 @@ export class SingerAlbumPage extends Component {
 		}
 	}
 
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.data, this.props.data);
+	}
+
 	render() {
-		if (this.props.album.data) {
-			const {begin, data: {list, total}} = this.props.album;
+		const {begin, data} = this.props;
+		if (data) {
+			const {list, total} = data.toJS();
 			const {num} = API_SINGER_ALBUM_CONFIG;
 			const totalpage = Math.ceil(total / num);
 			const curpage = Math.floor(begin / num) + 1;
@@ -76,10 +84,14 @@ export class SingerAlbumPage extends Component {
 }
 
 const mapStateToProps = createSelector(
-	getSinger,
-	(singer) => {
+	getSingerAlbumData,
+	getSingerAlbumBegin,
+	getSingerAlbumLastMid,
+	(data, begin, lastFetchMid) => {
 		return {
-			album: singer.album.toJS()
+			data,
+			lastFetchMid,
+			begin
 		}
 	}
 );

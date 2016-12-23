@@ -12,5 +12,9 @@ export {
 	getSingerSong,
 	getSingerSongData,
 	getSingerSongLastMid,
-	getSingerSongBegin
+	getSingerSongBegin,
+	getSingerAlbum,
+	getSingerAlbumBegin,
+	getSingerAlbumData,
+	getSingerAlbumLastMid
 } from './selectors';

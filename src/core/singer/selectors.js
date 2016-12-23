@@ -17,6 +17,7 @@ export function getSingerDataData(state) {
 	return getSingerData(state).get('data');
 }
 
+
 export function getSingerSong(state) {
 	return getSinger(state).song;
 }
@@ -31,4 +32,21 @@ export function getSingerSongData(state) {
 
 export function getSingerSongBegin(state) {
 	return getSingerSong(state).get('begin');
+}
+
+
+export function getSingerAlbum(state) {
+	return getSinger(state).album;
+}
+
+export function getSingerAlbumLastMid(state) {
+	return getSingerAlbum(state).get('lastFetchMid');
+}
+
+export function getSingerAlbumData(state) {
+	return getSingerAlbum(state).get('data');
+}
+
+export function getSingerAlbumBegin(state) {
+	return getSingerAlbum(state).get('begin');
 }

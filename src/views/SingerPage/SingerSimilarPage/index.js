@@ -5,8 +5,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
 import {Link} from 'react-router';
+import {is} from 'immutable';
 
-import {getSinger, singerActions} from '../../../core/singer';
+import {getSingerSimilarLastMid, getSingerSimilarData, getSingerSimilarBegin, singerActions} from '../../../core/singer';
 import {getPathLastFromProps} from '../../../core/utils';
 
 import './SingerSimilarPage.css';
@@ -14,25 +15,25 @@ import './SingerSimilarPage.css';
 export class SingerSimilarPage extends Component {
 
 	componentWillMount() {
-		const {loadSingerSimilar, similar} = this.props;
+		const {loadSingerSimilar, lastFetchMid} = this.props;
 		const mid = getPathLastFromProps(this.props);
 
-		if (!similar.lastFetchMid || similar.lastFetchMid !== mid) {
+		if (!lastFetchMid || lastFetchMid !== mid) {
 			loadSingerSimilar({
 				singer_mid: mid
 			});
 		}
 	}
 
-	render() {
-		const {similar} = this.props;
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.data, this.props.data);
+	}
 
-		if (!similar.data) {
-			return (
-				<div>加载中...</div>
-			);
-		} else {
-			const {items} = similar.data;
+	render() {
+		const {data} = this.props;
+
+		if (data) {
+			const {items} = data.toJS();
 			return (
 				<div className="singerlist_wrap">
 					<ul>
@@ -52,17 +53,23 @@ export class SingerSimilarPage extends Component {
 					</ul>
 				</div>
 			);
+		} else {
+			return (
+				<div>加载中...</div>
+			);
 		}
 	}
 }
 
 const mapStateToProps = createSelector(
-	getSinger,
-	(singer) => {
-		const {similar} = singer;
-
+	getSingerSimilarData,
+	getSingerSimilarLastMid,
+	getSingerSimilarBegin,
+	(data, lastFetchMid, begin) => {
 		return {
-			similar: similar.toJS()
+			data,
+			lastFetchMid,
+			begin
 		}
 	}
 );

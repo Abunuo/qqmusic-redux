@@ -50,3 +50,20 @@ export function getSingerAlbumData(state) {
 export function getSingerAlbumBegin(state) {
 	return getSingerAlbum(state).get('begin');
 }
+
+
+export function getSingerSimilar(state) {
+	return getSinger(state).similar;
+}
+
+export function getSingerSimilarLastMid(state) {
+	return getSingerSimilar(state).get('lastFetchMid');
+}
+
+export function getSingerSimilarData(state) {
+	return getSingerSimilar(state).get('data');
+}
+
+export function getSingerSimilarBegin(state) {
+	return getSingerSimilar(state).get('begin');
+}

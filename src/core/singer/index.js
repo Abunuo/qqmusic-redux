@@ -16,5 +16,9 @@ export {
 	getSingerAlbum,
 	getSingerAlbumBegin,
 	getSingerAlbumData,
-	getSingerAlbumLastMid
+	getSingerAlbumLastMid,
+	getSingerSimilar,
+	getSingerSimilarBegin,
+	getSingerSimilarData,
+	getSingerSimilarLastMid
 } from './selectors';

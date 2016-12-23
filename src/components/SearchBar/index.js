@@ -82,7 +82,7 @@ class SearchBar extends React.Component {
 								resultChilds.push(
 									<div className="search_result_sort" key={list}>
 										<h4 className="search_result_tit">
-											<i className={`search_result_icon_${list}`}></i>
+											<i className={`search_result_icon_${list}`}/>
 											{suggest[list].name}
 										</h4>
 										<ul>
@@ -151,7 +151,7 @@ class SearchBar extends React.Component {
 						ref={e => this.input = e}
 					/>
 					<button className="search_bar_btn" onClick={this.handleBtnClick}>
-						<i className="search_bar_btn_icon"></i>
+						<i className="search_bar_btn_icon"/>
 					</button>
 				</div>
 				{this.renderSuggestBox()}

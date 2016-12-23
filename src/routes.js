@@ -5,7 +5,7 @@ export const routes = {
 	component: require('./views/App').default,
 	childRoutes: [
 		{
-			component: require('./views/App/MainPage').default,
+			component: require('./views/MainPage').default,
 			childRoutes: [
 				{
 					path: '/',

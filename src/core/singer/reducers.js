@@ -19,13 +19,13 @@ export function singerReducer(state = new SingerState(), action) {
 
 	switch (type) {
 		case singerActions.FETCH_SINGER_PENDING:
-			return state.merge({
+			return state.mergeDeep({
 				[payload.type]: {
 					lastFetchMid: payload.type === 'similar' ? payload.param.singer_mid : payload.param.singermid
 				}
 			});
 		case singerActions.FETCH_SINGER_FAILED:
-			return state.merge({
+			return state.mergeDeep({
 				[payload.type]: {
 					lastFetchMid: null
 				}

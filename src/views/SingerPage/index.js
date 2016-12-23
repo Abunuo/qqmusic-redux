@@ -4,45 +4,40 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
+import {is} from 'immutable';
 
 import SingerSongPage from './SingerSongPage';
 import SingerPageNav from './SingerPageNav';
 import {getPathLastFromProps} from '../../core/utils';
-import {singerActions, getSinger} from '../../core/singer';
+import {singerActions, getSingerDataData, getSingerDataLastMid} from '../../core/singer';
 import {SINGER_PHOTO_300_URL} from '../../core/constants';
 
 import './SingerPage.css';
 
 export class SingerPage extends Component {
 
-/*	componentWillMount() {
-		const {loadSingerData, data} = this.props;
-		const mid = getPathLastFromProps(this.props);
-
-		if (!data.lastFetchMid || data.lastFetchMid !== mid) {console.log(data, mid)
-			loadSingerData({
-				singermid: mid
-			})
-		}
-	}*/
-
 	componentWillReceiveProps(nextProps) {
-		const {loadSingerData, data} = nextProps;
+		const {loadSingerData, lastFetchMid} = nextProps;
 		const mid = getPathLastFromProps(nextProps);
 
-		if (!data.lastFetchMid || data.lastFetchMid !== mid) {
+		if (!lastFetchMid || lastFetchMid !== mid) {
 			loadSingerData({
 				singermid: mid
 			})
 		}
 	}
 
+	shouldComponentUpdate(nextProps) {
+		const {data: nextData, location: {pathname: nextPathname}} = nextProps;
+		const {data, location: {pathname}} = this.props;
+		return !is(nextData, data) || !is(pathname, nextPathname);
+	}
 
 	render() {
-		const {children, data: {data}} = this.props;
+		const {children, data} = this.props;
 		const mid = getPathLastFromProps(this.props);
 		if (data) {
-			const {singer_name, fans, SingerDesc} = data;
+			const {singer_name, fans, SingerDesc} = data.toJS();
 			return (
 				<div>
 					<div className="singer_page_header">
@@ -71,10 +66,12 @@ export class SingerPage extends Component {
 }
 
 const mapStateToProps = createSelector(
-	getSinger,
-	(singer) => {
+	getSingerDataLastMid,
+	getSingerDataData,
+	(lastFetchMid, data) => {
 		return {
-			data: singer.data.toJS()
+			lastFetchMid,
+			data
 		}
 	}
 );

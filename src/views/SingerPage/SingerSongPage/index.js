@@ -4,8 +4,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
+import {is} from 'immutable';
 
-import {singerActions, getSinger} from '../../../core/singer';
+import {singerActions, getSingerSongData, getSingerSongLastMid, getSingerSongBegin} from '../../../core/singer';
 import {playerActions} from '../../../core/player';
 import SongList from '../../../components/SongList';
 import PageNav from '../../../components/PageNav';
@@ -17,12 +18,13 @@ import './SingerSongPage.css';
 export class SingerSongPage extends Component {
 
 	componentWillMount() {
-		const {loadSingerSong, song} = this.props;
+		const {loadSingerSong, lastFetchMid} = this.props;
 		const mid = getPathLastFromProps(this.props);
 
-		if (!song.lastFetchMid || song.lastFetchMid !== mid) {
+		if (!lastFetchMid || lastFetchMid !== mid) {
 			loadSingerSong({
-				singermid: mid
+				singermid: mid,
+				begin: 0
 			})
 		}
 	}
@@ -34,13 +36,14 @@ export class SingerSongPage extends Component {
 			const mid = getPathLastFromProps(nextProps);
 
 			loadSingerSong({
-				singermid: mid
+				singermid: mid,
+				begin: 0
 			})
 		}
 	}
 
 	handleNavClick(e) {
-		const {loadSingerSong, song: {begin}} = this.props;
+		const {loadSingerSong, begin} = this.props;
 		const mid = getPathLastFromProps(this.props);
 		const value = e.target.getAttribute('value');
 		const {num} = API_SINGER_SONG_CONFIG;
@@ -53,9 +56,14 @@ export class SingerSongPage extends Component {
 		}
 	}
 
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.data, this.props.data);
+	}
+
 	render() {
-		if (this.props.song.data) {
-			const {begin, data: {list, total}} = this.props.song;
+		const {data, begin} = this.props;
+		if (data) {
+			const {list, total} = data.toJS();
 			const {num} = API_SINGER_SONG_CONFIG;
 			const totalpage = Math.ceil(total / num);
 			const curpage = Math.floor(begin / num) + 1;
@@ -75,10 +83,14 @@ export class SingerSongPage extends Component {
 }
 
 const mapStateToProps = createSelector(
-	getSinger,
-	(singer) => {
+	getSingerSongData,
+	getSingerSongLastMid,
+	getSingerSongBegin,
+	(data, lastFetchMid, begin) => {
 		return {
-			song: singer.song.toJS()
+			data,
+			lastFetchMid,
+			begin
 		}
 	}
 );

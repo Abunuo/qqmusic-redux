@@ -4,4 +4,13 @@
 export {singerActions, singerRequestActions} from './actions';
 export {singerEpics} from './epcis';
 export {singerReducer} from './reducers';
-export {getSinger} from './selectors';
+export {
+	getSinger,
+	getSingerData,
+	getSingerDataData,
+	getSingerDataLastMid,
+	getSingerSong,
+	getSingerSongData,
+	getSingerSongLastMid,
+	getSingerSongBegin
+} from './selectors';

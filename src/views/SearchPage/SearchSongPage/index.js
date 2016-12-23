@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
 
-import {searchActions, getSearchSong, getSearch} from '../../../core/search';
+import {searchActions, getSearch} from '../../../core/search';
 import {playerActions} from '../../../core/player';
 import SongList from '../../../components/SongList';
 import PageNav from '../../../components/PageNav';

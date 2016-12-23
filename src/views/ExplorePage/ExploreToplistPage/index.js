@@ -5,8 +5,9 @@ import React, {Component} from 'react';
 import {createSelector} from 'reselect';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import {is} from 'immutable';
 
-import {toplistActions, getToplist} from '../../../core/toplist';
+import {toplistActions, getToplistAll} from '../../../core/toplist';
 import TopCard from './TopCard';
 
 import './ExploreToplistPage.css';
@@ -20,6 +21,10 @@ class ExploreToplistPage extends Component {
 		if (!toplistAll) {
 			loadToplistAll();
 		}
+	}
+
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.toplistAll, this.props.toplistAll);
 	}
 
 	render() {
@@ -56,10 +61,12 @@ class ExploreToplistPage extends Component {
 }
 
 const mapStateToProps = createSelector(
-	getToplist,
-	(toplist) => ({
-		toplistAll: toplist.all
-	})
+	getToplistAll,
+	(all) => {
+		return {
+			toplistAll: all
+		}
+	}
 );
 
 const mapDispatchToProps = {

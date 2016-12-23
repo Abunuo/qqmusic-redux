@@ -17,26 +17,26 @@ function renderRank(type, topid, curCount, oldCount, inCount) {
 				if (oldCount === 0) {
 					return (
 						<td className="top_songlist_rank">
-							<i className="icon_rank_new"></i>
+							<i className="icon_rank_new"/>
 						</td>
 					)
 				} else if (curCount < oldCount) {
 					return (
 						<td className="top_songlist_rank">
-							<i className="icon_rank_up"></i>
+							<i className="icon_rank_up"/>
 							{oldCount - curCount}
 						</td>
 					)
 				} else if (curCount === oldCount) {
 					return (
 						<td className="top_songlist_rank">
-							<i className="icon_rank_keep"></i>
+							<i className="icon_rank_keep"/>
 						</td>
 					)
 				} else {
 					return (
 						<td className="top_songlist_rank">
-							<i className="icon_rank_down"></i>
+							<i className="icon_rank_down"/>
 							{curCount - oldCount}
 						</td>
 					)
@@ -44,14 +44,14 @@ function renderRank(type, topid, curCount, oldCount, inCount) {
 			} else {
 				return (
 					<td className="top_songlist_rank">
-						<i className="icon_rank_popular"></i>
+						<i className="icon_rank_popular"/>
 						{(inCount * 100).toFixed(0) + '%'}
 					</td>
 				)
 			}
 		case 'global':
 		default:
-			return (<td></td>);
+			return (<td/>);
 	}
 }
 
@@ -87,8 +87,8 @@ export default function SongList({datas, topid, type, playSelectedSong}) {
 		<table className="top_songlist">
 			<thead>
 			<tr>
-				<td className="top_songlist_header_count"></td>
-				<td className="top_songlist_header_rank"></td>
+				<td className="top_songlist_header_count"/>
+				<td className="top_songlist_header_rank"/>
 				<td className="top_songlist_header_song">歌曲</td>
 				<td className="top_songlist_header_singer">歌手</td>
 				<td className="top_songlist_header_time">时长</td>

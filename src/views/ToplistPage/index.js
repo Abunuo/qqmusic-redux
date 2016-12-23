@@ -4,8 +4,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
+import {is} from 'immutable';
 
-import {toplistActions, getToplist} from '../../core/toplist';
+import {toplistActions, getCurToplist, getToplistAll} from '../../core/toplist';
 import {playerActions} from '../../core/player';
 import {getPathLastFromProps} from '../../core/utils';
 import TopSongList from './TopSongList';
@@ -13,17 +14,16 @@ import TopSongList from './TopSongList';
 import './ToplistPage.css'
 
 /*eslint-disable */
-const findFromLists = (lists, topid, date) => lists.find((list) => (topid == list.topid && date === list.date));
 const findFromAll = (all, topid) => all.List.find(lists => topid == lists.topID);
 /*eslint-enable */
 
 class ToplistPage extends Component {
 
 	componentWillMount() {
-		const {lists, loadToplistOne, location: {query: {date, type}}} = this.props;
+		const {list, loadToplistOne, location: {query: {date, type}}} = this.props;
 		const topid = getPathLastFromProps(this.props);
 
-		if (!findFromLists(lists, topid, date)) {
+		if (!list) {
 			loadToplistOne({
 				topid,
 				date,
@@ -32,12 +32,15 @@ class ToplistPage extends Component {
 		}
 	}
 
-	render() {
-		const {lists, all, location: {query: {date, type}}} = this.props;
-		const topid = getPathLastFromProps(this.props);
-		const finded = findFromLists(lists, topid, date);
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.list, this.props.list);
+	}
 
-		if (finded) {
+	render() {
+		const {list, all, location: {query: {type}}, playSelectedSong} = this.props;
+		const topid = getPathLastFromProps(this.props);
+
+		if (list) {
 			let info = {};
 			all.forEach((item) => {
 				info = findFromAll(item, topid);
@@ -50,7 +53,7 @@ class ToplistPage extends Component {
 				<div className="toplist_page_wrap">
 					<img src={headPic_v12} alt={ListName} className="toplist_page_header"/>
 					<div className="top_songlist_wrap">
-						<TopSongList datas={finded} type={type} topid={topid} playSelectedSong={this.props.playSelectedSong}/>
+						<TopSongList datas={list.toJS()} type={type} topid={topid} playSelectedSong={playSelectedSong}/>
 					</div>
 				</div>
 			)
@@ -65,11 +68,14 @@ class ToplistPage extends Component {
 }
 
 const mapStateToProps = createSelector(
-	getToplist,
-	({lists, all}) => ({
-		lists,
-		all
-	})
+	getCurToplist,
+	getToplistAll,
+	(list, all) => {
+		return {
+			list,
+			all
+		}
+	}
 );
 
 const mapDispatchToProps = {

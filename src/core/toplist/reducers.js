@@ -1,7 +1,7 @@
 /**
  * Created by jiawei6 on 2016/12/13.
  */
-import {Record, List} from 'immutable';
+import {Record, List, Map} from 'immutable';
 
 import {toplistActions} from './actions';
 
@@ -21,22 +21,13 @@ export function toplistReducer(state = new ToplistState(), action) {
 		case toplistActions.FETCH_TOPLIST_FULFILLED:
 			const {result, param, type} = payload;
 			if (type === 'all') {
-				return state.set('all', List.of(
-					{
-						...result[0],
-						List: new List(result[0].List)
-					},
-					{
-						...result[1],
-						List: new List(result[1].List)
-					}
-				));
+				return state.set('all', List.of(...result));
 			} else if (type === 'one') {
 				if (!state.lists.find((list) => (param.topid === list.topid && param.date === list.date))) {
-					return state.set('lists', state.lists.push({
+					return state.set('lists', state.lists.push(Map({
 						...result,
 						topid: param.topid
-					}));
+					})));
 				}
 			}
 			return state;

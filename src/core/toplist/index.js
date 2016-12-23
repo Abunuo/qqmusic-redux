@@ -4,4 +4,4 @@
 export {toplistActions, toplistRequestActions} from './actions';
 export {toplistEpics} from './epcis';
 export {toplistReducer} from './reducers';
-export {getToplist} from './selectors';
+export {getToplist, getToplistAll, getCurToplist} from './selectors';

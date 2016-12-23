@@ -5,6 +5,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
 import {Link} from 'react-router';
+import {is} from 'immutable';
 
 import {getPlayer, playerActions} from '../../core/player';
 import {entityReplace, time2Min} from '../../core/utils';
@@ -55,6 +56,10 @@ class Player extends React.Component {
 		showPlayList(!playListIsShow);
 	}
 
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps, this.props);
+	}
+
 	render() {
 		const {
 			playSong,
@@ -84,17 +89,17 @@ class Player extends React.Component {
 		return (
 			<div className="g-btmbar">
 				<div className="m-playbar">
-					<span className="btn_big_prev" onClick={playPrevSong}></span>
+					<span className="btn_big_prev" onClick={playPrevSong}/>
 					{
 						isPlaying
-							? <span className="btn_big_pause" onClick={pauseSong}></span>
-							: <span className="btn_big_play" onClick={playSong}></span>
+							? <span className="btn_big_pause" onClick={pauseSong}/>
+							: <span className="btn_big_play" onClick={playSong}/>
 					}
-					<span className="btn_big_next" onClick={playNextSong}></span>
+					<span className="btn_big_next" onClick={playNextSong}/>
 					{
 						currentSong &&
 						<Link to="/play">
-							<img alt={currentSong.songname} src={`${ALBUM_PHOTO_90_URL}${currentSong.albummid}.jpg`} className="player_music_pic"/>
+							<img alt={currentSong.get('songname')} src={`${ALBUM_PHOTO_90_URL}${currentSong.get('albummid')}.jpg`} className="player_music_pic"/>
 						</Link>
 					}
 					<div className="player_music">
@@ -102,10 +107,10 @@ class Player extends React.Component {
 							currentSong &&
 							<div className="player_music_info">
 								{
-									<Link to={`/play`}>{entityReplace(currentSong.songname)}</Link>
+									<Link to={`/play`}>{entityReplace(currentSong.get('songname'))}</Link>
 								}
 								<span> - </span>
-								{currentSong.singer.map(({name, mid}, i) => [
+								{currentSong.get('singer').map(({name, mid}, i) => [
 									i !== 0 && ' / ',
 									<Link to={`/singer/song/${mid}`}>{entityReplace(name)}</Link>
 								])}
@@ -117,8 +122,8 @@ class Player extends React.Component {
 						}
 						<PlayProgressBar handleTimeClick={this.handleTimeClick} percentBuffered={percentBuffered} percentCompleted={percentCompleted}/>
 					</div>
-					<a className={`btn_big_style_${playMode}`} onClick={this.handlePlayModeClick}></a>
-					<a className='player_playlist_btn' onClick={this.handlePlayListClick}></a>
+					<a className={`btn_big_style_${playMode}`} onClick={this.handlePlayModeClick}/>
+					<a className='player_playlist_btn' onClick={this.handlePlayListClick}/>
 					<VoiceBar handleVoiceClick={this.handleVoiceClick} muted={muted} volume={volume}/>
 					{
 						playListIsShow && playList &&

@@ -1,7 +1,7 @@
 /**
  * Created by jiawei6 on 2016/12/8.
  */
-import {Record, List, Map} from 'immutable';
+import {Record, List} from 'immutable';
 
 import {playerActions} from './actions';
 import {PLAY_MODE} from '../../core/constants';
@@ -50,7 +50,7 @@ export function playerReducer(state = new PlayerState(), {payload, type}) {
 
 
 		case playerActions.LOAD_SONG:
-			return state.set('currentSong', new Map({...payload}));
+			return state.set('currentSong', payload);
 
 		case playerActions.PLAY_SELECTED_SONG:
 			if (payload.isMid) {

@@ -54,7 +54,7 @@ class PlayList extends Component {
 	}
 
 	render() {
-		const {datas, playSelectedSong, currentSong, isPlaying, deleteSong} = this.props;
+		const {datas, playSelectedSong, currentSongId, isPlaying, deleteSong} = this.props;
 		return (
 			<table className="playlist">
 				<thead>
@@ -70,7 +70,7 @@ class PlayList extends Component {
 				<tbody>
 				{
 					datas.map(function (data, i) {
-						return renderItem(data, i, playSelectedSong, isPlaying && currentSong && data.songid === currentSong.get('songid'), deleteSong);
+						return renderItem(data, i, playSelectedSong, isPlaying && data.songid === currentSongId, deleteSong);
 					})
 				}
 				</tbody>
@@ -82,8 +82,8 @@ class PlayList extends Component {
 PlayList.propTypes = {
 	datas: PropTypes.instanceOf(List).isRequired,
 	playSelectedSong: PropTypes.func.isRequired,
-	currentSong: PropTypes.object,
-	isPlaying: PropTypes.bool
+	currentSongId: PropTypes.number,
+	isPlaying: PropTypes.bool.isRequired
 };
 
 export default PlayList;

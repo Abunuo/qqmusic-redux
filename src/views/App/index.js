@@ -9,14 +9,12 @@ import Player from '../../components/Player';
 export function App({children, search}) {
 
     return (
-        <div>
+        <div className="data-reactroot">
             <AppHeader
                 search={search}
             />
 
-            <main>
-                {children}
-            </main>
+	        {children}
 
             <Player/>
         </div>

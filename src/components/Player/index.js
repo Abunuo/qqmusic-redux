@@ -99,7 +99,7 @@ class Player extends React.Component {
 					{
 						currentSong &&
 						<Link to="/play">
-							<img alt={currentSong.songname} src={`${ALBUM_PHOTO_90_URL}${currentSong.albummid}.jpg`} className="player_music_pic"/>
+							<img alt={currentSong.get('songname')} src={`${ALBUM_PHOTO_90_URL}${currentSong.get('albummid')}.jpg`} className="player_music_pic"/>
 						</Link>
 					}
 					<div className="player_music">
@@ -107,10 +107,10 @@ class Player extends React.Component {
 							currentSong &&
 							<div className="player_music_info">
 								{
-									<Link to={`/play`}>{entityReplace(currentSong.songname)}</Link>
+									<Link to={`/play`}>{entityReplace(currentSong.get('songname'))}</Link>
 								}
 								<span> - </span>
-								{currentSong.singer.map(({name, mid}, i) => [
+								{currentSong.get('singer').map(({name, mid}, i) => [
 									i !== 0 && ' / ',
 									<Link to={`/singer/song/${mid}`}>{entityReplace(name)}</Link>
 								])}
@@ -130,7 +130,7 @@ class Player extends React.Component {
 						<PlayList
 							datas={playList}
 							playSelectedSong={playSelectedSong}
-							currentSongId={currentSong ? currentSong.songid : null}
+							currentSongId={currentSong ? currentSong.get('songid') : null}
 							showPlayList={showPlayList}
 							isPlaying={isPlaying}
 							deleteSong={deleteSong}

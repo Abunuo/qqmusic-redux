@@ -29,7 +29,9 @@ export class AlbumPage extends Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		return !is(nextProps.album, this.props.album);
+		const {album, location: {pathname}} = this.props;
+		const {nextAlbum, location: {pathname: nextPathname}} = nextProps;
+		return !is(album, nextAlbum) || pathname !== nextPathname;
 	}
 
 	render() {

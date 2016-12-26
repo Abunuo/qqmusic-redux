@@ -16,6 +16,17 @@ import './SingerPage.css';
 
 export class SingerPage extends Component {
 
+	componentWillMount() {
+		const {loadSingerData, lastFetchMid} = this.props;
+		const mid = getPathLastFromProps(this.props);
+
+		if (!lastFetchMid || lastFetchMid !== mid) {
+			loadSingerData({
+				singermid: mid
+			})
+		}
+	}
+
 	componentWillReceiveProps(nextProps) {
 		const {loadSingerData, lastFetchMid} = nextProps;
 		const mid = getPathLastFromProps(nextProps);

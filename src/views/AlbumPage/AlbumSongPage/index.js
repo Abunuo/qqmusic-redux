@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
+import {is} from 'immutable';
 
 import SongList from '../../../components/SongList';
 import {playerActions} from '../../../core/player';
@@ -13,13 +14,17 @@ import './AlbumSongPage.css';
 
 export class AlbumSongPage extends Component {
 
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.album, this.props.album);
+	}
+
 	render() {
 		const {album, playSelectedSong} = this.props;
 
 		if (album) {
 			return (
 				<div className="album_songlist_wrap">
-					<SongList datas={album.list} playSelectedSong={playSelectedSong}/>
+					<SongList datas={album.get('list')} playSelectedSong={playSelectedSong}/>
 				</div>
 			)
 		} else {

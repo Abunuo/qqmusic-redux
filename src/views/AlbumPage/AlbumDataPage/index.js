@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
 import {Link} from 'react-router';
+import {is} from 'immutable';
 
 import {getAlbum} from '../../../core/album';
 
@@ -12,10 +13,14 @@ import './AlbumDataPage.css'
 
 export class AlbumDataPage extends Component {
 
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.album, this.props.album);
+	}
+
 	render() {
 		const {album} = this.props;
 		if (album) {
-			const {name, desc, singername, singermid, lan, genre, aDate, company} = album;
+			const {name, desc, singername, singermid, lan, genre, aDate, company} = album.toJS();
 			return (
 				<div className="album_data_wrap">
 					<h3>专辑名：</h3>{name}<br/>

@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {createSelector} from 'reselect';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import {is} from 'immutable';
 
 import AlbumSongPage from './AlbumSongPage';
 import AlbumPageNav from './AlbumPageNav';
@@ -27,12 +28,16 @@ export class AlbumPage extends Component {
 		}
 	}
 
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.album, this.props.album);
+	}
+
 	render() {
 		const {children, album} = this.props;
 		const mid = getPathLastFromProps(this.props);
 
 		if (album) {
-			const {name, genre, singername, singermid} = album;
+			const {name, genre, singername, singermid} = album.toJS();
 			return (
 				<div>
 					<div className="album_page_header">

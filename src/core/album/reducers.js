@@ -1,6 +1,7 @@
 /**
  * Created by jiawei6 on 2016/12/7.
  */
+import {Map} from 'immutable';
 import {albumActions} from './actions';
 
 export function albumReducer(state = null, action) {
@@ -12,9 +13,9 @@ export function albumReducer(state = null, action) {
 		case albumActions.FETCH_ALBUM_FAILED:
 			return state;
 		case albumActions.FETCH_ALBUM_FULFILLED:
-			return {
+			return new Map({
 				...payload.result.data
-			};
+			});
 		default:
 			return state;
 	}

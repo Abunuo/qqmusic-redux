@@ -27,18 +27,19 @@ class SearchBar extends React.Component {
 
 	handleInput() {
 		const value = this.input.value.trim();
-		const {loadSearchSuggest, search: {lastQuery, suggest, hot}} = this.props;
+		const {loadSearchSuggest, search: {lastQuery, suggest, hot}, loadSearchHot} = this.props;
 		if (value !== '') { //在有输入的情况下加载数据
 			loadSearchSuggest(value, lastQuery, !!suggest);
 		} else {
-			this.props.loadSearchHot(!!hot);
+			loadSearchHot(!!hot);
 		}
 	}
 
 	handleBtnClick() {
 		const value = this.input.value.trim();
+		const {navigateToSearch, search: {lastSearch}} = this.props;
 		if (value !== '') { //在有输入的情况下跳转
-			this.props.navigateToSearch('song', value, this.props.search.lastSearch);
+			navigateToSearch('song', value, lastSearch);
 		}
 	}
 
@@ -143,7 +144,7 @@ class SearchBar extends React.Component {
 						type="text"
 						autoComplete="off"
 						maxLength="60"
-						placeholder="搜索单曲、专辑、MV、歌词、歌单"
+						placeholder="搜索单曲、专辑、MV、歌手"
 						tabIndex="0"
 						//onInput={this.handleInput}
 						onFocus={this.handleFocus}

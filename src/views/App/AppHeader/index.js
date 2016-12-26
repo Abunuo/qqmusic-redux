@@ -3,6 +3,7 @@
  */
 import React, {PropTypes, Component} from 'react';
 import {Link} from 'react-router';
+import {is} from 'immutable';
 
 import SearchBar from '../../../components/SearchBar';
 
@@ -10,11 +11,9 @@ import './AppHeader.css';
 
 class AppHeader extends Component {
 
-/*	shouldComponentUpdate(nextProps) {
-		const {props: thisProps} = this;
-
-		return nextProps.showSuggestBox !== thisProps.showSuggestBox;
-	}*/
+	shouldComponentUpdate(nextProps) {
+		return !is(this.props.search, nextProps.search);
+	}
 
 	render() {
 		const {search} = this.props;

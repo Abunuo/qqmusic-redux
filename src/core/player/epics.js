@@ -66,7 +66,7 @@ function playSelectedSong(action$, state) {
 				return Observable.merge(
 					Observable.of(playerActions.loadSong(payload)),
 					Observable.of(playerActions.playSong()),
-					Observable.of(localStoreActions.saveToLocal('playList', state.getState().player.playList.toJS()))
+					Observable.of(localStoreActions.saveToLocal('playList', state.getState().player.get('playList').toJS()))
 				)
 			}
 		});
@@ -190,7 +190,7 @@ function audioEnded(action$, state) {
 
 function deleteSong(action$, state) {
 	return action$.ofType(playerActions.DELETE_SONG)
-		.switchMap(() => Observable.of(localStoreActions.saveToLocal('playList', state.getState().player.playList.toJS())));
+		.switchMap(() => Observable.of(localStoreActions.saveToLocal('playList', state.getState().player.get('playList').toJS())));
 }
 
 export const playerEpics = [

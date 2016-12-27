@@ -29,10 +29,10 @@ class Player extends React.Component {
 
 	handleTimeClick(event) {
 		const {currentTarget, pageX} = event;
-		const {seekTime, player: {times: {duration}}} = this.props;
+		const {seekTime, player} = this.props;
 
 		seekTime(
-			(pageX - currentTarget.getBoundingClientRect().left) / currentTarget.offsetWidth * duration
+			(pageX - currentTarget.getBoundingClientRect().left) / currentTarget.offsetWidth * player.get('times').get('duration')
 		);
 	}
 
@@ -52,8 +52,8 @@ class Player extends React.Component {
 	}
 
 	handlePlayListClick() {
-		const {showPlayList, player: {playListIsShow}} = this.props;
-		showPlayList(!playListIsShow);
+		const {showPlayList, player} = this.props;
+		showPlayList(!player.get('playListIsShow'));
 	}
 
 	shouldComponentUpdate(nextProps) {
@@ -69,22 +69,23 @@ class Player extends React.Component {
 			playSelectedSong,
 			deleteSong,
 			showPlayList,
-			player: {
-				isPlaying,
-				currentSong,
-				times: {
-					duration,
-					currentTime,
-					percentBuffered,
-					percentCompleted
-				},
-				playMode,
-				playList,
-				volume,
-				muted,
-				playListIsShow
-			}
+			player
 		} = this.props;
+		const {
+			isPlaying,
+			currentSong,
+			times: {
+				duration,
+				currentTime,
+				percentBuffered,
+				percentCompleted
+			},
+			playMode,
+			playList,
+			volume,
+			muted,
+			playListIsShow
+		} = player.toJS();
 
 		return (
 			<div className="g-btmbar">
@@ -99,7 +100,7 @@ class Player extends React.Component {
 					{
 						currentSong &&
 						<Link to="/play">
-							<img alt={currentSong.get('songname')} src={`${ALBUM_PHOTO_90_URL}${currentSong.get('albummid')}.jpg`} className="player_music_pic"/>
+							<img alt={currentSong.songname} src={`${ALBUM_PHOTO_90_URL}${currentSong.albummid}.jpg`} className="player_music_pic"/>
 						</Link>
 					}
 					<div className="player_music">
@@ -107,10 +108,10 @@ class Player extends React.Component {
 							currentSong &&
 							<div className="player_music_info">
 								{
-									<Link to={`/play`}>{entityReplace(currentSong.get('songname'))}</Link>
+									<Link to={`/play`}>{entityReplace(currentSong.songname)}</Link>
 								}
 								<span> - </span>
-								{currentSong.get('singer').map(({name, mid}, i) => [
+								{currentSong.singer.map(({name, mid}, i) => [
 									i !== 0 && ' / ',
 									<Link to={`/singer/song/${mid}`}>{entityReplace(name)}</Link>
 								])}
@@ -130,7 +131,7 @@ class Player extends React.Component {
 						<PlayList
 							datas={playList}
 							playSelectedSong={playSelectedSong}
-							currentSongId={currentSong ? currentSong.get('songid') : null}
+							currentSongId={currentSong ? currentSong.songid : null}
 							showPlayList={showPlayList}
 							isPlaying={isPlaying}
 							deleteSong={deleteSong}

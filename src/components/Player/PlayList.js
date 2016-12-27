@@ -3,7 +3,6 @@
  */
 import React, {PropTypes, Component} from 'react';
 import {Link} from 'react-router';
-import {List} from 'immutable';
 import {is} from 'immutable';
 
 import {entityReplace, time2Min} from '../../core/utils';
@@ -80,7 +79,7 @@ class PlayList extends Component {
 }
 
 PlayList.propTypes = {
-	datas: PropTypes.instanceOf(List).isRequired,
+	datas: PropTypes.array.isRequired,
 	playSelectedSong: PropTypes.func.isRequired,
 	currentSongId: PropTypes.number,
 	isPlaying: PropTypes.bool.isRequired

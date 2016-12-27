@@ -1,38 +1,39 @@
 /**
  * Created by jiawei6 on 2016/12/8.
  */
-import {Record, List, Map} from 'immutable';
+import {List, Map} from 'immutable';
 
 import {playerActions} from './actions';
 import {PLAY_MODE} from '../../core/constants';
 
-const PlayerTimesState = new Record({
+const PlayerTimesState = {
 	bufferedTime: 0,
 	currentTime: 0,
 	duration: 0,
 	percentBuffered: '0%',
 	percentCompleted: '0%'
-});
+};
 
-const PlayerState = new Record({
+const PlayerState = {
 	isPlaying: false,
 	volume: 1,
-	times: new PlayerTimesState(),
+	times: new Map(PlayerTimesState),
 	playMode: 'list', // order 顺序播放 random 随机播放 single 单曲循环 list 列表循环
 	playList: new List(),
 	currentSong: null,
 	muted: false,
 	playListIsShow: false
-});
+};
 
-export function playerReducer(state = new PlayerState(), {payload, type}) {
-	const {playList, playMode} = state;
+export function playerReducer(state = new Map(PlayerState), {payload, type}) {
+	const playList = state.get('playList');
+	const playMode = state.get('playMode');
 	let index;
 	switch (type) {
 
 		case playerActions.AUDIO_ENDED:
 			return state.merge({
-				times: new PlayerTimesState(),
+				times: new Map(PlayerTimesState),
 				isPlaying: false
 			});
 
@@ -46,7 +47,7 @@ export function playerReducer(state = new PlayerState(), {payload, type}) {
 			return state.set('volume', payload.volume);
 
 		case playerActions.AUDIO_TIME_UPDATED:
-			return state.set('times', state.times.merge(payload));
+			return state.set('times', state.get('times').merge(payload));
 
 
 		case playerActions.LOAD_SONG:

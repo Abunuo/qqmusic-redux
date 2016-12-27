@@ -36,7 +36,7 @@ const mapStateToProps = createSelector(
 	getPlayer,
 	(player) => {
 		return {
-			currentSong: player.currentSong
+			currentSong: player.get('currentSong')
 		}
 	}
 );

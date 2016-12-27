@@ -57,7 +57,7 @@ export function playerReducer(state = new Map(PlayerState), {payload, type}) {
 			if (payload.isMid) {
 				return state;
 			}
-			if (playList.find((value) => value.songid === payload.songid)) {
+			if (playList.find((value) => value.get('songid') === payload.songid)) {
 				return state;
 			} else {
 				const {data, musicData} = payload;
@@ -69,14 +69,14 @@ export function playerReducer(state = new Map(PlayerState), {payload, type}) {
 					songid,
 					albumname
 				} = data || musicData ||payload;
-				return state.set('playList', playList.push({
+				return state.set('playList', playList.push(new Map({
 					interval,
 					singer,
 					songname,
 					albummid,
 					songid,
 					albumname
-				}));
+				})));
 			}
 
 		case playerActions.SET_VOLUME:
@@ -98,7 +98,7 @@ export function playerReducer(state = new Map(PlayerState), {payload, type}) {
 			return state.set('playListIsShow', payload.bool);
 
 		case playerActions.DELETE_SONG:
-			index = playList.findIndex((value) => value.songid === payload.songid);
+			index = playList.findIndex((value) => value.get('songid') === payload.songid);
 			if (~index) {
 				return state.set('playList', playList.delete(index));
 			}

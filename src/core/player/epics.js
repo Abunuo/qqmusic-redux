@@ -66,7 +66,7 @@ function playSelectedSong(action$, state) {
 				return Observable.merge(
 					Observable.of(playerActions.loadSong(payload)),
 					Observable.of(playerActions.playSong()),
-					Observable.of(localStoreActions.saveToLocal('playList', state.getState().player.get('playList').toJS()))
+					Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS()))
 				)
 			}
 		});
@@ -75,14 +75,17 @@ function playSelectedSong(action$, state) {
 function playNextSong(action$, state) {
 	return action$.ofType(playerActions.PLAY_NEXT_SONG)
 		.map(() => state.getState().player)
-		.filter(({currentSong, playList}) => currentSong && playList.size > 1)
-		.switchMap(({currentSong, playList, playMode}) => {
+		.filter((player) => player.get('currentSong') && player.get('playList').size > 1)
+		.switchMap((player) => {
+			const currentSong = player.get('currentSong');
+			const playList = player.get('playList');
+			const playMode = player.get('playMode');
 			const size = playList.size - 1;
 			let index;
 			if (playMode === 'random') {
 				index = Math.round(Math.random() * size);
 			} else {
-				index = playList.findIndex(value => value.songid === currentSong.songid);
+				index = playList.findIndex(value => value.get('songid') === currentSong.get('songid'));
 				if (index < size) {
 					index += 1;
 				} else {
@@ -90,7 +93,7 @@ function playNextSong(action$, state) {
 				}
 			}
 			return Observable.merge(
-				Observable.of(playerActions.loadSong(playList.get(index))),
+				Observable.of(playerActions.loadSong(playList.get(index).toJS())),
 				Observable.of(playerActions.playSong())
 			)
 		});
@@ -99,14 +102,17 @@ function playNextSong(action$, state) {
 function playPrevSong(action$, state) {
 	return action$.ofType(playerActions.PLAY_PREV_SONG)
 		.map(() => state.getState().player)
-		.filter(({currentSong, playList}) => currentSong && playList.size > 1)
-		.switchMap(({currentSong, playList, playMode}) => {
+		.filter((player) => player.get('currentSong') && player.get('playList').size > 1)
+		.switchMap((player) => {
+			const currentSong = player.get('currentSong');
+			const playList = player.get('playList');
+			const playMode = player.get('playMode');
 			const size = playList.size - 1;
 			let index;
 			if (playMode === 'random') {
 				index = Math.round(Math.random() * size);
 			} else {
-				index = playList.findIndex(value => value.songid === currentSong.songid);
+				index = playList.findIndex(value => value.get('songid') === currentSong.get('songid'));
 				if (index > 0) {
 					index -= 1;
 				} else {
@@ -114,7 +120,7 @@ function playPrevSong(action$, state) {
 				}
 			}
 			return Observable.merge(
-				Observable.of(playerActions.loadSong(playList.get(index))),
+				Observable.of(playerActions.loadSong(playList.get(index).toJS())),
 				Observable.of(playerActions.playSong())
 			);
 		});
@@ -147,7 +153,10 @@ function mute(action$) {
 function audioEnded(action$, state) {
 	return action$.ofType(playerActions.AUDIO_ENDED)
 		.map(() => state.getState().player)
-		.switchMap(({currentSong, playList, playMode}) => {
+		.switchMap((player) => {
+			const currentSong = player.get('currentSong');
+			const playList = player.get('playList');
+			const playMode = player.get('playMode');
 			const size = playList.size - 1;
 			let index;
 			switch (playMode) {
@@ -155,7 +164,7 @@ function audioEnded(action$, state) {
 					index = Math.round(Math.random() * size);
 					break;
 				case 'list':
-					index = playList.findIndex(value => value.songid === currentSong.songid);
+					index = playList.findIndex(value => value.get('songid') === currentSong.get('songid'));
 					if (index < size) {
 						index += 1;
 					} else {
@@ -163,7 +172,7 @@ function audioEnded(action$, state) {
 					}
 					break;
 				case 'order':
-					index = playList.findIndex(value => value.songid === currentSong.songid);
+					index = playList.findIndex(value => value.get('songid') === currentSong.get('songid'));
 					if (index < size) {
 						index += 1;
 					} else {
@@ -171,7 +180,7 @@ function audioEnded(action$, state) {
 					}
 					break;
 				case 'single':
-					index = playList.findIndex(value => value.songid === currentSong.songid);
+					index = playList.findIndex(value => value.get('songid') === currentSong.get('songid'));
 					break;
 				default:
 					break;
@@ -180,7 +189,7 @@ function audioEnded(action$, state) {
 			if (index > -1) {
 				const song = playList.get(index);
 				return Observable.merge(
-					Observable.of(playerActions.loadSong(song)),
+					Observable.of(playerActions.loadSong(song.toJS())),
 					Observable.of(playerActions.playSong())
 				);
 			}
@@ -190,7 +199,50 @@ function audioEnded(action$, state) {
 
 function deleteSong(action$, state) {
 	return action$.ofType(playerActions.DELETE_SONG)
-		.switchMap(() => Observable.of(localStoreActions.saveToLocal('playList', state.getState().player.get('playList').toJS())));
+		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())));
+}
+
+function initPlayer(action$, state) {
+	return action$.ofType(playerActions.INIT_PLAYER)
+		.switchMap(() => {
+			const player = state.getState().player;
+			const currentSong = player.get('currentSong');
+			const isPlaying = player.get('isPlaying');
+			const times = player.get('times');
+			if (currentSong && isPlaying) {
+				return Observable.merge(
+					Observable.of(playerActions.playSelectedSong(currentSong.toJS())),
+					Observable.of(playerActions.seekTime(times.get('currentTime')))
+				);
+			} else if (currentSong) {
+				return Observable.merge(
+					Observable.of(playerActions.loadSong(currentSong.toJS())),
+					Observable.of(playerActions.seekTime(times.get('currentTime')))
+				);
+			} else {
+				return Observable.empty()
+			}
+		})
+}
+
+function audioPlaying(action$, state) {
+	return action$.ofType(playerActions.AUDIO_PLAYING)
+		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
+}
+
+function audioPaused(action$, state) {
+	return action$.ofType(playerActions.AUDIO_PAUSED)
+		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
+}
+
+function audioTimeUpdated(action$, state) {
+	return action$.ofType(playerActions.AUDIO_TIME_UPDATED)
+		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
+}
+
+function audioVolumeChanged(action$, state) {
+	return action$.ofType(playerActions.AUDIO_VOLUME_CHANGED)
+		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
 }
 
 export const playerEpics = [
@@ -204,5 +256,10 @@ export const playerEpics = [
 	setVolume,
 	mute,
 	audioEnded,
-	deleteSong
+	deleteSong,
+	initPlayer,
+	audioPlaying,
+	audioPaused,
+	audioTimeUpdated,
+	audioVolumeChanged
 ];

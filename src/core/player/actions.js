@@ -27,6 +27,8 @@ export const playerActions = {
 	FETCH_SONG_INFO_FULFILLED: 'FETCH_SONG_INFO_FULFILLED',
 	FETCH_SONG_INFO_PENDING: 'FETCH_SONG_INFO_PENDING',
 
+	INIT_PLAYER: 'INIT_PLAYER',
+
 	fetchSongInfoFailed: result => ({
 		type: playerActions.FETCH_SONG_INFO_FAILED,
 		payload: {
@@ -149,6 +151,10 @@ export const playerActions = {
 		payload: {
 			...song
 		}
+	}),
+
+	initPlayer: player => ({
+		type: playerActions.INIT_PLAYER
 	})
 };
 

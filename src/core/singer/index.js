@@ -20,5 +20,9 @@ export {
 	getSingerSimilar,
 	getSingerSimilarBegin,
 	getSingerSimilarData,
-	getSingerSimilarLastMid
+	getSingerSimilarLastMid,
+	getSingerMV,
+	getSingerMVBegin,
+	getSingerMVData,
+	getSingerMVLastMid
 } from './selectors';

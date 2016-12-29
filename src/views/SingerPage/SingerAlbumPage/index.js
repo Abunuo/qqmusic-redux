@@ -45,15 +45,16 @@ export class SingerAlbumPage extends Component {
 	}
 
 	handleNavClick(e) {
-		const {loadSingerAlbum} = this.props;
+		const {loadSingerAlbum, begin} = this.props;
 		const mid = getPathLastFromProps(this.props);
 		const value = e.target.getAttribute('value');
+		const {num} = API_SINGER_ALBUM_CONFIG;
 
 		if (value) {
 			loadSingerAlbum({
-				begin: (value - 1) * API_SINGER_ALBUM_CONFIG.num,
+				begin: value === 'next' ? begin + num : value === 'prev' ? begin - num : (value - 1) * num,
 				singermid: mid
-			})
+			});
 		}
 	}
 
@@ -74,7 +75,7 @@ export class SingerAlbumPage extends Component {
 					<AlbumList datas={list}/>
 					<PageNav curpage={curpage} totalpage={totalpage} handleNavClick={this.handleNavClick.bind(this)}/>
 				</div>
-			)
+			);
 		} else {
 			return (
 				<div>加载中...</div>

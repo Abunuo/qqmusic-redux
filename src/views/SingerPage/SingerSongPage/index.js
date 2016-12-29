@@ -52,7 +52,7 @@ export class SingerSongPage extends Component {
 			loadSingerSong({
 				begin: value === 'next' ? begin + num : value === 'prev' ? begin - num : (value - 1) * num,
 				singermid: mid
-			})
+			});
 		}
 	}
 
@@ -73,7 +73,7 @@ export class SingerSongPage extends Component {
 					<SongList datas={list} playSelectedSong={this.props.playSelectedSong}/>
 					<PageNav curpage={curpage} totalpage={totalpage} handleNavClick={this.handleNavClick.bind(this)}/>
 				</div>
-			)
+			);
 		} else {
 			return (
 				<div>加载中...</div>

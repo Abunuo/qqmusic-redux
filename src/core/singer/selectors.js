@@ -67,3 +67,20 @@ export function getSingerSimilarData(state) {
 export function getSingerSimilarBegin(state) {
 	return getSingerSimilar(state).get('begin');
 }
+
+
+export function getSingerMV(state) {
+	return getSinger(state).mv;
+}
+
+export function getSingerMVLastMid(state) {
+	return getSingerMV(state).get('lastFetchMid');
+}
+
+export function getSingerMVData(state) {
+	return getSingerMV(state).get('data');
+}
+
+export function getSingerMVBegin(state) {
+	return getSingerMV(state).get('begin');
+}

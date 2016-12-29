@@ -2,7 +2,7 @@
  * Created by jiawei6 on 2016/12/6.
  */
 import {singerActions} from './actions';
-import {fetchSingerSong, fetchSingerAlbum, fetchSingerSimilar, fetchSingerData} from '../../core/api';
+import {fetchSingerSong, fetchSingerAlbum, fetchSingerSimilar, fetchSingerData, fetchSingerMV} from '../../core/api';
 
 export function loadSingerSong(action$) {
 	return action$.ofType(singerActions.LOAD_SINGER_SONG)
@@ -25,6 +25,13 @@ export function loadSingerAlbum(action$) {
 		})
 }
 
+export function loadSingerMV(action$) {
+	return action$.ofType(singerActions.LOAD_SINGER_MV)
+		.mergeMap(action => {
+			return fetchSingerMV(action.payload)
+		})
+}
+
 export function loadSingerSimilar(action$) {
 	return action$.ofType(singerActions.LOAD_SINGER_SIMILAR)
 		.mergeMap(action => {
@@ -36,5 +43,6 @@ export const singerEpics = [
 	loadSingerSong,
 	loadSingerData,
 	loadSingerAlbum,
-	loadSingerSimilar
+	loadSingerSimilar,
+	loadSingerMV
 ];

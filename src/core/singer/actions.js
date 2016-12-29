@@ -8,6 +8,7 @@ export const singerActions = {
 
 	LOAD_SINGER_SONG: 'LOAD_SINGER_SONG',
 	LOAD_SINGER_DATA: 'LOAD_SINGER_DATA',
+	LOAD_SINGER_MV: 'LOAD_SINGER_MV',
 	LOAD_SINGER_ALBUM: 'LOAD_SINGER_ALBUM',
 	LOAD_SINGER_SIMILAR: 'LOAD_SINGER_SIMILAR',
 
@@ -48,6 +49,13 @@ export const singerActions = {
 
 	loadSingerAlbum: (params) => ({
 		type: singerActions.LOAD_SINGER_ALBUM,
+		payload: {
+			...params
+		}
+	}),
+
+	loadSingerMV: (params) => ({
+		type: singerActions.LOAD_SINGER_MV,
 		payload: {
 			...params
 		}

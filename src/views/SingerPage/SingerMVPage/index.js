@@ -3,9 +3,6 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {createSelector} from 'reselect';
-
-import {searchActions, getSearch} from '../../../core/search';
 
 export class SingerMVPage extends Component {
 
@@ -16,22 +13,7 @@ export class SingerMVPage extends Component {
 	}
 }
 
-const mapStateToProps = createSelector(
-	getSearch,
-	(search) => {
-		const {album} = search
-		return {
-			album: album && album.toJS(),
-			search: search.toJS()
-		}
-	}
-);
-
-const mapDispatchToProps = {
-	loadSearch: searchActions.loadSearch
-};
-
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
+	null,
+	null
 )(SingerMVPage);

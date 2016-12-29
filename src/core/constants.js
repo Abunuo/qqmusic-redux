@@ -38,6 +38,15 @@ export const API_SINGER_ALBUM_CONFIG = {
 	order: 'time'
 };
 
+export const API_SINGER_MV_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_singer_album.fcg';
+export const API_SINGER_MV_CONFIG = {
+	cid: 205360581,
+	order: 'listen',
+	begin: 0,
+	num: 30,
+	platform: 'yqq'
+};
+
 export const API_SINGER_SIMILAR_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_simsinger.fcg?format=jsonp';
 
 

@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
 
-import {searchActions, getSearchSong} from '../../../core/search';
+import {searchActions, getSearchMV} from '../../../core/search';
 
 export class SearchMVPage extends Component {
 
@@ -22,14 +22,14 @@ export class SearchMVPage extends Component {
 }
 
 const mapStateToProps = createSelector(
-	getSearchSong,
-	song => ({
-		song: song && song.toJS()
+	getSearchMV,
+	mv => ({
+		mv
 	})
 );
 
 const mapDispatchToProps = {
-	loadSearchSong: searchActions.loadSearchSong
+	loadSingerMV: searchActions.loadSingerMV
 };
 
 export default connect(

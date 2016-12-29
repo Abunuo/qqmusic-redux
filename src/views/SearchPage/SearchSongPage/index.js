@@ -4,8 +4,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
+import {is} from 'immutable';
 
-import {searchActions, getSearch} from '../../../core/search';
+import {searchActions, getSearchSong} from '../../../core/search';
 import {playerActions} from '../../../core/player';
 import SongList from '../../../components/SongList';
 import PageNav from '../../../components/PageNav';
@@ -16,9 +17,9 @@ import './SearchSongPage.css';
 export class SearchSongPage extends Component {
 
 	componentWillMount() {
-		const {pending, song, loadSearch, location: {query: {q}}} = this.props;
+		const {song, loadSearch, location: {query: {q}}} = this.props;
 
-		if (!pending && (!song || song.keyword !== q)) {
+		if (!song || song.keyword !== q) {
 			loadSearch({
 				...LOAD_SEARCH_SONG_CONFIG,
 				w: q
@@ -27,8 +28,9 @@ export class SearchSongPage extends Component {
 	}
 
 	handleNavClick(e) {
-		const {loadSearch, location: {query: {q}}, song: {song: {curpage}}} = this.props;
+		const {loadSearch, location: {query: {q}}, song} = this.props;
 		const value = e.target.getAttribute('value');
+		const curpage = song.get('song').get('curpage');
 
 		if (value) {
 			loadSearch({
@@ -39,15 +41,20 @@ export class SearchSongPage extends Component {
 		}
 	}
 
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.song, this.props.song);
+	}
+
 	render() {
-		if (this.props.song) {
-			const {song, keyword, semantic} = this.props.song;
+		const {song: propsSong, playSelectedSong} = this.props;
+		if (propsSong) {
+			const {song, keyword, semantic} = propsSong.toJS();
 			const {curpage, list, totalnum} = song.curnum ? song : semantic;
 			const totalpage = Math.ceil(totalnum / 20);
 
 			return (
 				<div className="search_songlist_wrap">
-					<SongList datas={list} keyword={keyword.trim()} playSelectedSong={this.props.playSelectedSong}/>
+					<SongList datas={list} keyword={keyword.trim()} playSelectedSong={playSelectedSong}/>
 					<PageNav curpage={curpage} totalpage={totalpage} handleNavClick={this.handleNavClick.bind(this)}/>
 				</div>
 			)
@@ -60,12 +67,10 @@ export class SearchSongPage extends Component {
 }
 
 const mapStateToProps = createSelector(
-	getSearch,
-	(search) => {
-		const {song, pending} = search;
+	getSearchSong,
+	(song) => {
 		return {
-			song: song && song.toJS(),
-			pending: pending
+			song
 		}
 	}
 );

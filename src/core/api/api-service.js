@@ -12,6 +12,8 @@ import {
 	API_SINGER_DATA_URL,
 	API_SINGER_ALBUM_URL,
 	API_SINGER_ALBUM_CONFIG,
+	API_SINGER_MV_URL,
+	API_SINGER_MV_CONFIG,
 	API_SINGER_SIMILAR_URL,
 	API_ALBUM_URL,
 	API_TOPLIST_ALL_URL,
@@ -89,6 +91,19 @@ export const api = {
 			},
 			{
 				jsonpCallbackFunction: 'fetchSingerAlbum'
+			}
+		)
+	},
+
+	fetchSingerMV(param) {
+		return dispatch(
+			API_SINGER_MV_URL,
+			{
+				...API_SINGER_MV_CONFIG,
+				...param
+			},
+			{
+				jsonpCallbackFunction: 'fetchSingerMV'
 			}
 		)
 	},

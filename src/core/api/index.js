@@ -7,6 +7,7 @@ export {
 	fetchSearch,
 	fetchSingerSong,
 	fetchSingerAlbum,
+	fetchSingerMV,
 	fetchSingerSimilar,
 	fetchSingerData,
 	fetchAlbum,

@@ -5,14 +5,14 @@ export function getSearch(state) {
 	return state.search;
 }
 
-export function getSearchHot(state) {
-	return getSearch(state).hot;
-}
-
-export function getSearchSuggest(state) {
-	return getSearch(state).suggest;
-}
-
 export function getSearchSong(state) {
 	return getSearch(state).song;
+}
+
+export function getSearchAlbum(state) {
+	return getSearch(state).album;
+}
+
+export function getSearchMV(state) {
+	return getSearch(state).mv;
 }

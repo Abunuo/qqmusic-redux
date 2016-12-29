@@ -4,9 +4,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
+import {is} from 'immutable';
 
 import AlbumList from '../../../components/AlbumList';
-import {searchActions, getSearch} from '../../../core/search';
+import {searchActions, getSearchAlbum} from '../../../core/search';
 import PageNav from '../../../components/PageNav';
 import {LOAD_SEARCH_ALBUM_CONFIG} from '../../../core/constants';
 
@@ -15,9 +16,9 @@ import './SearchAlbumPage.css';
 export class SearchAlbumPage extends Component {
 
 	componentWillMount() {
-		const {pending, album, loadSearch, location: {query: {q}}} = this.props;
+		const {album, loadSearch, location: {query: {q}}} = this.props;
 
-		if (!pending && (!album || album.keyword !== q)) {
+		if ((!album || album.get('keyword') !== q)) {
 			loadSearch({
 				...LOAD_SEARCH_ALBUM_CONFIG,
 				w: q
@@ -26,8 +27,9 @@ export class SearchAlbumPage extends Component {
 	}
 
 	handleNavClick(e) {
-		const {loadSearch, location: {query: {q}}, album: {curpage}} = this.props;
+		const {loadSearch, location: {query: {q}}, album} = this.props;
 		const value = e.target.getAttribute('value');
+		const curpage = album.get('album').get('curpage');
 
 		if (value) {
 			loadSearch({
@@ -38,10 +40,14 @@ export class SearchAlbumPage extends Component {
 		}
 	}
 
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.album, this.props.album);
+	}
+
 	render() {
 		const {album} = this.props;
 		if (album) {
-			const {album: {curpage, list, totalnum}, keyword} = album;
+			const {album: {curpage, list, totalnum}, keyword} = album.toJS();
 			const totalpage = Math.ceil(totalnum / 20);
 
 			return (
@@ -59,12 +65,10 @@ export class SearchAlbumPage extends Component {
 }
 
 const mapStateToProps = createSelector(
-	getSearch,
-	(search) => {
-		const {album, pending} = search;
+	getSearchAlbum,
+	(album) => {
 		return {
-			album: album && album.toJS(),
-			pending: pending
+			album
 		}
 	}
 );

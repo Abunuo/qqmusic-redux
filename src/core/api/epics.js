@@ -44,6 +44,7 @@ export const fetchSearch = fetchEntities.bind(null, api.fetchSearch, searchReque
 export const fetchSingerSong = fetchEntities.bind(null, api.fetchSingerSong, singerRequestActions, 'song');
 export const fetchSingerData = fetchEntities.bind(null, api.fetchSingerData, singerRequestActions, 'data');
 export const fetchSingerAlbum = fetchEntities.bind(null, api.fetchSingerAlbum, singerRequestActions, 'album');
+export const fetchSingerMV = fetchEntities.bind(null, api.fetchSingerMV, singerRequestActions, 'mv');
 export const fetchSingerSimilar = fetchEntities.bind(null, api.fetchSingerSimilar, singerRequestActions, 'similar');
 
 export const fetchAlbum = fetchEntities.bind(null, api.fetchAlbum, albumRequestActions, null);

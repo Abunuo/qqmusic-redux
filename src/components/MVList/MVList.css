@@ -120,6 +120,10 @@
 	white-space: nowrap;
 }
 
+.mvlist_title a span {
+	color: #31c27c;
+}
+
 .mvlist_title a:hover {
 	color: #31c27c;
 }

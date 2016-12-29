@@ -8,11 +8,11 @@ import {entityReplace, lightKeyword, time2Min} from '../../core/utils';
 
 import './SongList.css'
 
-const renderItem = (song, i, keyword, playSelectedSong) => {
-	const {songname, singer, albumname, albummid, interval} = song;
+export const SongListItem = ({songData, i, keyword, playSelectedSong}) => {
+	const {songname, singer, albumname, albummid, interval} = songData;
 	return (
 		<tr key={i}>
-			<td className="songlist_songname" onClick={() => playSelectedSong(song)}>{lightKeyword(entityReplace(songname), keyword)}</td>
+			<td className="songlist_songname" onClick={() => playSelectedSong(songData)}>{lightKeyword(entityReplace(songname), keyword)}</td>
 			<td className="songlist_singer">
 				{singer.map(({name, mid}, i) => [
 					i !== 0 && ' / ',
@@ -39,7 +39,8 @@ export const SongList = ({datas, keyword, playSelectedSong}) => (
 		{
 			datas.map(function (song, i) {
 				const {data, musicData} = song;
-				return renderItem(data || musicData || song, i, keyword, playSelectedSong);
+				const songData = data || musicData || song;
+				return SongListItem({songData, i, keyword, playSelectedSong});
 			})
 		}
 		</tbody>

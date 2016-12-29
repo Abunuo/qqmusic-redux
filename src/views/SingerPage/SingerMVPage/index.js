@@ -7,6 +7,7 @@ import {createSelector} from 'reselect';
 import {is} from 'immutable';
 
 import {singerActions, getSingerMVData, getSingerMVLastMid, getSingerMVBegin} from '../../../core/singer';
+import MVList from '../../../components/MVList'
 import PageNav from '../../../components/PageNav';
 import {API_SINGER_MV_CONFIG} from '../../../core/constants';
 import {getPathLastFromProps} from '../../../core/utils';
@@ -54,6 +55,10 @@ export class SingerMVPage extends Component {
 		}
 	}
 
+	shouldComponentUpdate(nextProps) {
+		return !is(nextProps.data, this.props.data);
+	}
+
 	render() {
 		const {begin, data} = this.props;
 		if (data) {
@@ -64,6 +69,7 @@ export class SingerMVPage extends Component {
 
 			return (
 				<div className="singer_mvlist_wrap">
+					<MVList list={list}/>
 					<PageNav curpage={curpage} totalpage={totalpage} handleNavClick={this.handleNavClick.bind(this)}/>
 				</div>
 			);

@@ -9,7 +9,7 @@ import {ALBUM_PHOTO_90_URL} from '../../core/constants';
 
 import './AlbumList.css';
 
-const renderItem = ({singerName, singerMID, albumName, albumMID, publicTime, pubTime, singers}, i, keyword) => (
+export const AlbumListItem = ({singerName, singerMID, albumName, albumMID, publicTime, pubTime, singers, i, keyword}) => (
 	<tr key={i}>
 		<td className="albumlist_albumname">
 			<Link to={`/album/song/${albumMID}`}>
@@ -31,6 +31,12 @@ const renderItem = ({singerName, singerMID, albumName, albumMID, publicTime, pub
 		<td className="albumlist_publictime">{publicTime || pubTime}</td>
 	</tr>
 );
+
+const renderItem = (data, i, keyword) => AlbumListItem({
+	...data,
+	i,
+	keyword
+});
 
 export const AlbumList = ({datas, keyword}) => (
 	<table className="albumlist">

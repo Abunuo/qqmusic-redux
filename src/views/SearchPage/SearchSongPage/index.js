@@ -17,9 +17,9 @@ import './SearchSongPage.css';
 export class SearchSongPage extends Component {
 
 	componentWillMount() {
-		const {song, loadSearch, location: {query: {q}}} = this.props;
+		const {data, loadSearch, location: {query: {q}}} = this.props;
 
-		if (!song || song.keyword !== q) {
+		if (!data || data.get('keyword') !== q) {
 			loadSearch({
 				...LOAD_SEARCH_SONG_CONFIG,
 				w: q
@@ -28,9 +28,9 @@ export class SearchSongPage extends Component {
 	}
 
 	handleNavClick(e) {
-		const {loadSearch, location: {query: {q}}, song} = this.props;
+		const {loadSearch, location: {query: {q}}, data} = this.props;
 		const value = e.target.getAttribute('value');
-		const curpage = song.get('song').get('curpage');
+		const curpage = data.get('song').get('curpage');
 
 		if (value) {
 			loadSearch({
@@ -42,15 +42,16 @@ export class SearchSongPage extends Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		return !is(nextProps.song, this.props.song);
+		return !is(nextProps.data, this.props.data);
 	}
 
 	render() {
-		const {song: propsSong, playSelectedSong} = this.props;
-		if (propsSong) {
-			const {song, keyword, semantic} = propsSong.toJS();
+		const {data} = this.props;
+		if (data) {
+			const {playSelectedSong} = this.props;
+			const {song, keyword, semantic} = data.toJS();
 			const {curpage, list, totalnum} = song.curnum ? song : semantic;
-			const totalpage = Math.ceil(totalnum / 20);
+			const totalpage = Math.ceil(totalnum / LOAD_SEARCH_SONG_CONFIG.n);
 
 			return (
 				<div className="search_songlist_wrap">
@@ -70,7 +71,7 @@ const mapStateToProps = createSelector(
 	getSearchSong,
 	(song) => {
 		return {
-			song
+			data: song
 		}
 	}
 );

@@ -22,6 +22,13 @@ export const LOAD_SEARCH_SONG_CONFIG = {
 	//aggr: 1
 };
 
+export const LOAD_SEARCH_MV_CONFIG = {
+	catZhida: 1,
+	p: 1,
+	n: 28,
+	t: 12
+};
+
 
 export const API_SINGER_SONG_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg';
 export const API_SINGER_SONG_CONFIG = {
@@ -43,7 +50,7 @@ export const API_SINGER_MV_CONFIG = {
 	cid: 205360581,
 	order: 'listen',
 	begin: 0,
-	num: 40,
+	num: 28,
 	platform: 'yqq'
 };
 

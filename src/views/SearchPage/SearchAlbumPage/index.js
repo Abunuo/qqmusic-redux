@@ -16,9 +16,9 @@ import './SearchAlbumPage.css';
 export class SearchAlbumPage extends Component {
 
 	componentWillMount() {
-		const {album, loadSearch, location: {query: {q}}} = this.props;
+		const {data, loadSearch, location: {query: {q}}} = this.props;
 
-		if ((!album || album.get('keyword') !== q)) {
+		if ((!data || data.get('keyword') !== q)) {
 			loadSearch({
 				...LOAD_SEARCH_ALBUM_CONFIG,
 				w: q
@@ -27,9 +27,9 @@ export class SearchAlbumPage extends Component {
 	}
 
 	handleNavClick(e) {
-		const {loadSearch, location: {query: {q}}, album} = this.props;
+		const {loadSearch, location: {query: {q}}, data} = this.props;
 		const value = e.target.getAttribute('value');
-		const curpage = album.get('album').get('curpage');
+		const curpage = data.get('album').get('curpage');
 
 		if (value) {
 			loadSearch({
@@ -41,14 +41,14 @@ export class SearchAlbumPage extends Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		return !is(nextProps.album, this.props.album);
+		return !is(nextProps.data, this.props.data);
 	}
 
 	render() {
-		const {album} = this.props;
-		if (album) {
-			const {album: {curpage, list, totalnum}, keyword} = album.toJS();
-			const totalpage = Math.ceil(totalnum / 20);
+		const {data} = this.props;
+		if (data) {
+			const {album: {curpage, list, totalnum}, keyword} = data.toJS();
+			const totalpage = Math.ceil(totalnum / LOAD_SEARCH_ALBUM_CONFIG.n);
 
 			return (
 				<div className="search_albumlist_wrap">
@@ -68,7 +68,7 @@ const mapStateToProps = createSelector(
 	getSearchAlbum,
 	(album) => {
 		return {
-			album
+			data: album
 		}
 	}
 );

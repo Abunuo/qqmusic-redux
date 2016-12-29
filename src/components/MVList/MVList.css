@@ -115,25 +115,19 @@
 	font-weight: 400;
 	zoom:1;
 	*width: 100%;
-}
-
-.mvlist_singer,.mvlist_title {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-.mvlist_singer {
-	height: 24px;
+.mvlist_title a:hover {
+	color: #31c27c;
 }
 
 .mvlist_info {
 	line-height: 18px;
-	height: 20px
-}
-
-.mvlist_info,.mvlist_singer,.mvlist_singer a {
-	color: #999
+	height: 20px;
+	color: #999;
 }
 
 .mvlist_listen {

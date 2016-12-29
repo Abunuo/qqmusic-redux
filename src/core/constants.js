@@ -34,7 +34,10 @@ export const API_SINGER_SONG_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_
 export const API_SINGER_SONG_CONFIG = {
 	num: 30,
 	begin: 0,
-	order: 'listen'
+	order: 'listen',
+	format: 'jsonp',
+	platform: 'yqq',
+	notice: 0
 };
 
 export const API_SINGER_DATA_URL = `${API_SINGER_SONG_URL}?num=1&from=h5`;
@@ -42,7 +45,11 @@ export const API_SINGER_ALBUM_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_singer_album
 export const API_SINGER_ALBUM_CONFIG = {
 	num: 30,
 	begin: 0,
-	order: 'time'
+	order: 'time',
+	format: 'jsonp',
+	platform: 'yqq',
+	notice: 0,
+	needNewCode: 0
 };
 
 export const API_SINGER_MV_URL = '//c.y.qq.com/mv/fcgi-bin/fcg_singer_mv.fcg';

@@ -60,7 +60,6 @@ export class AlbumPage extends Component {
 			return (
 				<div>
 					加载中...
-					<div className="album_page_header"></div>
 					<AlbumPageNav mid={mid}/>
 					{children || <AlbumSongPage/>}
 				</div>

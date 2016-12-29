@@ -68,6 +68,7 @@ class Player extends React.Component {
 			playPrevSong,
 			playSelectedSong,
 			deleteSong,
+			addSongList,
 			showPlayList,
 			player
 		} = this.props;
@@ -131,6 +132,7 @@ class Player extends React.Component {
 						<PlayList
 							datas={playList}
 							playSelectedSong={playSelectedSong}
+							addSongList={addSongList}
 							currentSongId={currentSong ? currentSong.songid : null}
 							showPlayList={showPlayList}
 							isPlaying={isPlaying}
@@ -164,7 +166,8 @@ const mapDispatchToProps = {
 	mute: playerActions.mute,
 	switchPlayMode: playerActions.switchPlayMode,
 	playSelectedSong: playerActions.playSelectedSong,
-	showPlayList: playerActions.showPlayList
+	showPlayList: playerActions.showPlayList,
+	addSongList: playerActions.addSongList
 };
 
 export default connect(

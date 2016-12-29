@@ -26,9 +26,11 @@ class AppHeader extends Component {
 					</Link>
 
 
-					<SearchBar
-						search={search}
-					/>
+					<div className="search_bar_wrap">
+						<SearchBar
+							search={search}
+						/>
+					</div>
 				</div>
 			</header>
 		)

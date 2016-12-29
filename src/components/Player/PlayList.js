@@ -12,29 +12,27 @@ import './PlayList.css'
 const renderItem = (song, i, playSelectedSong, isPlaying, deleteSong) => {
 	const {songname, singer, albumname, albummid, interval} = song;
 	return (
-		<tr key={i} className={`playlist_item_${(i + 1) % 2 === 0 ? 'odd' : 'even'}`}>
-			<td><div className={`playlist_count${isPlaying ? ' playlist_count_playing' : ''}`}>{i + 1}</div></td>
-			<td>
+		<li key={i}>
+			<div  className={`playlist_item_${(i + 1) % 2 === 0 ? 'odd' : 'even'}`}>
+				<div className='playlist_count'>
+					{isPlaying ? <div className="playlist_count_playing"/> : i + 1}
+				</div>
 				<div className="playlist_songname" onClick={() => playSelectedSong(song)}>{entityReplace(songname)}</div>
-			</td>
-			<td>
 				<div className="playlist_singer">
 					{singer.map(({name, mid}, i) => [
 						i !== 0 && ' / ',
 						<Link to={`/singer/song/${mid}`}>{entityReplace(name)}</Link>
 					])}
 				</div>
-			</td>
-			<td>
 				<div className="playlist_album">
 					<Link to={`/album/song/${albummid}`}>{entityReplace(albumname)}</Link>
 				</div>
-			</td>
-			<td className="playlist_time">{time2Min(interval)}</td>
-			<td className="playlist_delete">
-				<div className="playlist_delete_icon" onClick={() => deleteSong(song)}/>
-			</td>
-		</tr>
+				<div className="playlist_time">{time2Min(interval)}</div>
+				<div className="playlist_delete">
+					<div className="playlist_delete_icon" onClick={() => deleteSong(song)}/>
+				</div>
+			</div>
+		</li>
 	)
 };
 
@@ -53,27 +51,24 @@ class PlayList extends Component {
 	}
 
 	render() {
-		const {datas, playSelectedSong, currentSongId, isPlaying, deleteSong} = this.props;
+		const {datas, playSelectedSong, currentSongId, isPlaying, deleteSong, addSongList} = this.props;
 		return (
-			<table className="playlist">
-				<thead>
-				<tr>
-					<td className="playlist_header_count"/>
-					<td className="playlist_header_songname">歌曲</td>
-					<td className="playlist_header_singer">歌手</td>
-					<td className="playlist_header_album">专辑</td>
-					<td className="playlist_header_time">时长</td>
-					<td className="playlist_header_delete"/>
-				</tr>
-				</thead>
-				<tbody>
-				{
-					datas.map(function (data, i) {
-						return renderItem(data, i, playSelectedSong, isPlaying && data.songid === currentSongId, deleteSong);
-					})
-				}
-				</tbody>
-			</table>
+			<div className="playlist">
+				<div className="playlist_header">
+					{`总${datas.length}首`}
+					<div className="playlist_delete_all" onClick={() => addSongList(null, true)}>
+						<div className="playlist_delete_all_icon"/>
+						清空
+					</div>
+				</div>
+				<ul className="playlist_body">
+					{
+						datas.map(function (data, i) {
+							return renderItem(data, i, playSelectedSong, isPlaying && data.songid === currentSongId, deleteSong);
+						})
+					}
+				</ul>
+			</div>
 		)
 	}
 }
@@ -82,7 +77,8 @@ PlayList.propTypes = {
 	datas: PropTypes.array.isRequired,
 	playSelectedSong: PropTypes.func.isRequired,
 	currentSongId: PropTypes.number,
-	isPlaying: PropTypes.bool.isRequired
+	isPlaying: PropTypes.bool.isRequired,
+	addSongList: PropTypes.func.isRequired,
 };
 
 export default PlayList;

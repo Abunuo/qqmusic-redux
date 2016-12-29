@@ -9,7 +9,20 @@
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	background-color: #2D2F33;
+}
+
+.playlist_header {
+	height: 30px;
+	line-height: 30px;
+	color: #999;
+	padding-left: 10px;
+	position: relative;
+}
+
+.playlist_body {
+	height: 470px;
 	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .playlist thead{
@@ -28,7 +41,7 @@
 	background-color: #313337;
 }
 
-.playlist tbody td{
+.playlist li>div{
 	line-height: 30px;
 	height: 30px;
 	font-size: 13px;
@@ -37,34 +50,32 @@
 	cursor: default;
 }
 
-.playlist tbody td a{
-	width: 100%;
-}
-
-.playlist_header_count,.playlist_count {
+.playlist_count {
+	display: inline-block;
 	width: 30px;
 	text-align: center;
+	line-height: 30px;
+	overflow: hidden;
 }
 
 .playlist_count_playing {
-	position: absolute;
-	left: 10px;
-	top: 10px;
+	display: inline-block;
 	width: 10px;
 	height: 10px;
 	background: url(//y.gtimg.cn/mediastyle/yqq/img/wave.gif) 0 0 no-repeat;
 	text-indent: -99px;
-	overflow: hidden
 }
 
-.playlist_header_songname,.playlist_songname {
-	width: 250px;
+.playlist_songname {
+	display: inline-block;
+	width: 240px;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
 }
 
-.playlist_album,.playlist_singer,.playlist_header_album,.playlist_header_singer {
+.playlist_album,.playlist_singer {
+	display: inline-block;
 	padding-left: 15px;
 	width: 110px;
 	overflow: hidden;
@@ -72,18 +83,26 @@
 	white-space: nowrap;
 }
 
-.playlist_header_time,.playlist_time {
+.playlist_time {
+	display: inline-block;
 	padding-left: 15px;
 	width: 55px;
+	overflow: hidden;
 }
 
-.playlist_header_delete,.playlist_delete {
-	padding-right: 10px;
+.playlist_delete {
+	display: inline-block;
+	position: relative;
 	padding-left: 15px;
-	width: 45px;
+	width: 30px;
+	height: 100%;
 }
 
 .playlist_delete_icon {
+	display: inline-block;
+	position: absolute;
+	left: 10px;
+	top: 5px;
 	width: 20px;
 	height: 20px;
 	background-image: url(//y.gtimg.cn/mediastyle/yqq/img/icon_list_menu.png?max_age=2592000&v=873fb6560497db4abbe63767018022eb);
@@ -99,11 +118,38 @@
 	filter: none
 }
 
-.playlist tbody tr td a{
+.playlist_delete_all {
+	display: inline-block;
+	position: absolute;
+	text-indent: 25px;
+	right: 15px;
+	opacity: .8;
+	filter: alpha(opacity=80);
+	cursor: pointer;
+}
+
+.playlist_delete_all_icon {
+	display: inline-block;
+	position: absolute;
+	top: 5px;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	background-image: url(//y.gtimg.cn/mediastyle/yqq/img/icon_list_menu.png?max_age=2592000&v=873fb6560497db4abbe63767018022eb);
+	background-image: -webkit-image-set(url(//y.gtimg.cn/mediastyle/yqq/img/icon_list_menu.png?max_age=2592000&v=873fb6560497db4abbe63767018022eb) 1x,url(//y.gtimg.cn/mediastyle/yqq/img/icon_list_menu@2x.png?max_age=2592000&v=873fb6560497db4abbe63767018022eb&v=5b2eee44c015947ffe8d44c5b69fd078) 2x);
+	background-position: -88px -168px;
+}
+
+.playlist_delete_all:hover {
+	opacity: 1;
+	filter: none
+}
+
+.playlist li div a{
 	cursor: pointer;
 	color: #999;
 }
 
-.playlist tbody tr td a:hover{
+.playlist li div a:hover{
 	color: #DCDDE4;
 }

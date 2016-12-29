@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
 
@@ -6,19 +6,21 @@ import {getSearch} from '../../core/search';
 import AppHeader from './AppHeader';
 import Player from '../../components/Player';
 
-export function App({children, search}) {
+export class App extends Component {
+	render() {
+		const {children, search} = this.props;
+		return (
+            <div className="data-reactroot">
+                <AppHeader
+                    search={search}
+                />
 
-    return (
-        <div className="data-reactroot">
-            <AppHeader
-                search={search}
-            />
+	            {children}
 
-	        {children}
-
-            <Player/>
-        </div>
-    )
+                <Player/>
+            </div>
+		)
+	}
 }
 
 App.propTypes = {
@@ -29,7 +31,7 @@ App.propTypes = {
 const mapStateToProps = createSelector(
     getSearch,
     search => ({
-        search: search.toJS()
+        search: search
     })
 );
 

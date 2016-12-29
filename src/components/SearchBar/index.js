@@ -78,19 +78,19 @@ class SearchBar extends React.Component {
 				case 'result':
 					if (suggest) {
 						const resultChilds = [];
-						for (let list in suggest) {
-							if (suggest.hasOwnProperty(list) && suggest[list].itemlist.length) {
+						suggest.mapKeys((key, value) => {
+							if (value.get('itemlist').size) {
 								resultChilds.push(
-									<div className="search_result_sort" key={list}>
+									<div className="search_result_sort" key={key}>
 										<h4 className="search_result_tit">
-											<i className={`search_result_icon_${list}`}/>
-											{suggest[list].name}
+											<i className={`search_result_icon_${key}`}/>
+											{value.get('name')}
 										</h4>
 										<ul>
 											{
-												suggest[list].itemlist.map((item, index) => {
+												value.get('itemlist').map((item, index) => {
 													return (
-														<SearchResultItem key={index} type={list} {...item}/>
+														<SearchResultItem key={index} type={key} {...item.toJS()}/>
 													)
 												})
 											}
@@ -98,7 +98,7 @@ class SearchBar extends React.Component {
 									</div>
 								)
 							}
-						}
+						});
 						child =
 							<div className="search_result_box">
 								{resultChilds}
@@ -107,14 +107,14 @@ class SearchBar extends React.Component {
 					break;
 				case 'other':
 					if (hot) {
-						const hotkeys = hot.hotkey.slice(0, 5);
+						const hotkeys = hot.get('hotkey').slice(0, 5);
 						child =
 							<div className="search_other_box">
 								<ul>
 									{
 										hotkeys.map((hotkey, index) => {
 											return (
-												<SearchOtherItem query={hotkey.k} key={index} lastSearch={lastSearch}/>
+												<SearchOtherItem query={hotkey.get('k')} key={index} lastSearch={lastSearch}/>
 											)
 										})
 									}

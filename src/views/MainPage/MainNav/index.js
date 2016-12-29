@@ -12,7 +12,6 @@ export const MainNav = () => (
 		<ul className="main_nav_list">
 			<li><Link to="/" activeClassName="active">发现音乐</Link></li>
 			<li><Link to="/mvlist" activeClassName="active">MV</Link></li>
-			<li><Link to="/play" activeClassName="active">play</Link></li>
 		</ul>
 	</div>
 );

@@ -1,0 +1,1 @@
+**一个基于React全家桶（react、redux、react-router、immutable）以及rxjs的QQ音乐单页应用。**

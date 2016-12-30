@@ -12,12 +12,15 @@ export const SongListItem = ({songData, i, keyword, playSelectedSong}) => {
 	const {songname, singer, albumname, albummid, interval} = songData;
 	return (
 		<tr key={i}>
-			<td className="songlist_songname" onClick={() => playSelectedSong(songData)}>{lightKeyword(entityReplace(songname), keyword)}</td>
+			<td className="songlist_songname" onClick={() => songData.songmid && playSelectedSong(songData)}>{lightKeyword(entityReplace(songname), keyword)}</td>
 			<td className="songlist_singer">
-				{singer.map(({name, mid}, i) => [
-					i !== 0 && ' / ',
-					<Link to={`/singer/song/${mid}`}>{lightKeyword(entityReplace(name), keyword)}</Link>
-				])}
+				{singer.map(({name, mid}, i) => {
+					return [
+						i !== 0 && ' / ',
+						mid.trim() === '0032fmHO2UDnV3' ? lightKeyword(entityReplace(name), keyword)
+							: <Link to={`/singer/song/${mid}`}>{lightKeyword(entityReplace(name), keyword)}</Link>
+					]
+				})}
 			</td>
 			<td className="songlist_album"><Link to={`/album/song/${albummid}`}>{lightKeyword(entityReplace(albumname), keyword)}</Link></td>
 			<td className="songlist_time">{time2Min(interval)}</td>

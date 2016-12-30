@@ -48,6 +48,30 @@ Observable.fromEvent(_audio, 'volumechange')
 		dispatch(playerActions.audioVolumeChanged(_audio.volume))
 	});
 
+Observable.fromEvent(window, 'keydown')
+	.filter((e) => ~[32, 37, 38, 39, 40].indexOf(e.keyCode))
+	.subscribe((e) => {
+		switch (e.keyCode) {
+			case 32:
+				dispatch(playerActions.togglePlay());
+				break;
+			case 37:
+				dispatch(playerActions.playNextSong());
+				break;
+			case 39:
+				dispatch(playerActions.playPrevSong());
+				break;
+			case 38:
+				dispatch(playerActions.setVolume(Math.min(1, _audio.volume + 0.05)));
+				break;
+			case 40:
+				dispatch(playerActions.setVolume(Math.max(0, _audio.volume - 0.05)));
+				break;
+			default:
+				break;
+		}
+	});
+
 
 export const audio = {
 	load(mid) {

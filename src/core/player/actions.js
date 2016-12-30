@@ -12,6 +12,7 @@ export const playerActions = {
 	LOAD_SONG: 'LOAD_SONG',
 	PLAY_SONG: 'PLAY_SONG',
 	PAUSE_SONG: 'PAUSE_SONG',
+	TOGGLE_PLAY: 'TOGGLE_PLAY',
 	PLAY_SELECTED_SONG: 'PLAY_SELECTED_SONG',
 	PLAY_NEXT_SONG: 'PLAY_NEXT_SONG',
 	PLAY_PREV_SONG: 'PLAY_PREV_SONG',
@@ -89,6 +90,10 @@ export const playerActions = {
 
 	pauseSong: () => ({
 		type: playerActions.PAUSE_SONG
+	}),
+
+	togglePlay: () => ({
+		type: playerActions.TOGGLE_PLAY
 	}),
 
 	playSelectedSong: song => ({

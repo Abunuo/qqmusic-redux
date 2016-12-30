@@ -32,6 +32,18 @@ function pauseSong(action$) {
 		.skip();
 }
 
+function togglePlay(action$, state) {
+	return action$.ofType(playerActions.TOGGLE_PLAY)
+		.switchMap(() => {
+			if (state.getState().player.get('isPlaying')) {
+				return Observable.of(playerActions.pauseSong());
+			} else {
+				return Observable.of(playerActions.playSong());
+
+			}
+		});
+}
+
 function playSelectedSong(action$, state) {
 	return action$.ofType(playerActions.PLAY_SELECTED_SONG)
 		.map(({payload}) => {
@@ -225,16 +237,6 @@ function initPlayer(action$, state) {
 		})
 }
 
-function audioPlaying(action$, state) {
-	return action$.ofType(playerActions.AUDIO_PLAYING)
-		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
-}
-
-function audioPaused(action$, state) {
-	return action$.ofType(playerActions.AUDIO_PAUSED)
-		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
-}
-
 function audioTimeUpdated(action$, state) {
 	return action$.ofType(playerActions.AUDIO_TIME_UPDATED)
 		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
@@ -249,6 +251,7 @@ export const playerEpics = [
 	loadSong,
 	playSong,
 	pauseSong,
+	togglePlay,
 	playSelectedSong,
 	playNextSong,
 	playPrevSong,
@@ -258,8 +261,6 @@ export const playerEpics = [
 	audioEnded,
 	deleteSong,
 	initPlayer,
-	audioPlaying,
-	audioPaused,
 	audioTimeUpdated,
 	audioVolumeChanged
 ];

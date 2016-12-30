@@ -34,7 +34,7 @@ export const MVListCard = ({pic ,mv_pic_url, singers, singer_mid, singerMID, sin
 			<div className="mvlist_info">
 					<span className="mvlist_listen">
 						<i className="mvlist_listen_icon"/>
-						{listenCount}
+						{listenCount || play_count}
 					</span>
 			</div>
 		</div>

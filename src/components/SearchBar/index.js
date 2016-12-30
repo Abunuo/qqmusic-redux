@@ -63,7 +63,13 @@ class SearchBar extends React.Component {
 			.debounceTime(200)
 			.subscribe(() => {
 				this.handleInput();
-			})
+			});
+		Observable.fromEvent(this.input, 'keydown')
+			.filter((e) => e.keyCode === 13)
+			.subscribe(() => {
+				this.handleBtnClick();
+				this.handleBlur();
+			});
 	}
 
 	/**

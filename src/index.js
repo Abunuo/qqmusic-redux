@@ -16,7 +16,10 @@ const player = localStorage.getItem('player');
 //load local stored player
 export const store = configureStore(
 	player
-		? {player: fromJS(JSON.parse(localStorage.getItem('player')))}
+		? {player: fromJS({
+			...JSON.parse(localStorage.getItem('player')),
+			isPlaying: false
+		})}
 		: undefined
 );
 

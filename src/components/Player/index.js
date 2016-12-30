@@ -100,9 +100,9 @@ class Player extends React.Component {
 		} = player.toJS();
 
 		return (
-			<div className={`g-btmbar ${playerIsShow ? '' : 'player_hide'}`}>
+			<div className={`player_wrap ${playerIsShow ? '' : 'player_hide'}`}>
 				<div className="player_toggle_btn" onClick={this.handlePlayerClick}>==</div>
-				<div className="m-playbar">
+				<div className="player">
 					<span className="btn_big_prev" onClick={playPrevSong}/>
 					{
 						isPlaying

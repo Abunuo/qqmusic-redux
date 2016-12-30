@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react';
 
 export const VoiceBar = ({handleVoiceClick, muted, volume}) => (
 	<div className="player_progress player_voice" onClick={handleVoiceClick}>
-		<a className={`btn_big_voice ${muted ? 'btn_big_voice_muted' : ''}`}></a>
+		<a className={`btn_big_voice ${muted ? 'btn_big_voice_muted' : ''}`}/>
 		<div className="player_progress_inner">
 			<div className="player_progress_play" style={{width: volume * 100 + '%'}}></div>
 		</div>

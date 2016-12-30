@@ -1,4 +1,4 @@
-.g-btmbar {
+.player_wrap {
 	position: fixed;
 	zoom: 1;
 	bottom: 0;
@@ -12,7 +12,7 @@
 	bottom: -53px;
 }
 
-.m-playbar {
+.player {
 	position: absolute;
 	zoom: 1;
 	top: -53px;

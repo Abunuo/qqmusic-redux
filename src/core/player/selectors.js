@@ -4,3 +4,7 @@
 export function getPlayer(state) {
 	return state.player;
 }
+
+export function getPlayerIsShow(state) {
+	return getPlayer(state).get('playerIsShow');
+}

@@ -22,7 +22,8 @@ const PlayerState = {
 	playList: new List(),
 	currentSong: null,
 	muted: false,
-	playListIsShow: false
+	playListIsShow: false,
+	playerIsShow: true
 };
 
 export function playerReducer(state = new Map(PlayerState), {payload, type}) {
@@ -96,6 +97,9 @@ export function playerReducer(state = new Map(PlayerState), {payload, type}) {
 
 		case playerActions.SHOW_PLAYLIST:
 			return state.set('playListIsShow', payload.bool);
+
+		case playerActions.SHOW_PLAYER:
+			return state.set('playerIsShow', payload.bool);
 
 		case playerActions.DELETE_SONG:
 			index = playList.findIndex((value) => value.get('songid') === payload.songid);

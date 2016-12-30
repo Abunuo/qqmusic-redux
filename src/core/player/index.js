@@ -6,4 +6,4 @@ export {playerReducer} from './reducers';
 export {playerEpics} from './epics';
 export {audio} from './audio-service';
 
-export {getPlayer} from './selectors';
+export {getPlayer, getPlayerIsShow} from './selectors';

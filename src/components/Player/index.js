@@ -25,6 +25,7 @@ class Player extends React.Component {
 		this.handleVoiceClick = this.handleVoiceClick.bind(this);
 		this.handlePlayModeClick = this.handlePlayModeClick.bind(this);
 		this.handlePlayListClick = this.handlePlayListClick.bind(this);
+		this.handlePlayerClick = this.handlePlayerClick.bind(this);
 	}
 
 	handleTimeClick(event) {
@@ -56,6 +57,15 @@ class Player extends React.Component {
 		showPlayList(!player.get('playListIsShow'));
 	}
 
+	handlePlayerClick() {
+		const {showPlayer, player, showPlayList} = this.props;
+		const playerIsShow = player.get('playerIsShow');
+		showPlayer(!playerIsShow);
+		if (playerIsShow) {
+			showPlayList(false);
+		}
+	}
+
 	shouldComponentUpdate(nextProps) {
 		return !is(nextProps, this.props);
 	}
@@ -85,11 +95,13 @@ class Player extends React.Component {
 			playList,
 			volume,
 			muted,
-			playListIsShow
+			playListIsShow,
+			playerIsShow
 		} = player.toJS();
 
 		return (
-			<div className="g-btmbar">
+			<div className={`g-btmbar ${playerIsShow ? '' : 'player_hide'}`}>
+				<div className="player_toggle_btn" onClick={this.handlePlayerClick}>==</div>
 				<div className="m-playbar">
 					<span className="btn_big_prev" onClick={playPrevSong}/>
 					{
@@ -149,7 +161,7 @@ const mapStateToProps = createSelector(
 	getPlayer,
 	(player) => {
 		return {
-			player: player
+			player
 		}
 	}
 );
@@ -167,6 +179,7 @@ const mapDispatchToProps = {
 	switchPlayMode: playerActions.switchPlayMode,
 	playSelectedSong: playerActions.playSelectedSong,
 	showPlayList: playerActions.showPlayList,
+	showPlayer: playerActions.showPlayer,
 	addSongList: playerActions.addSongList
 };
 

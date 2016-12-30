@@ -247,6 +247,16 @@ function audioVolumeChanged(action$, state) {
 		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
 }
 
+function showPlayList(action$, state) {
+	return action$.ofType(playerActions.SHOW_PLAYLIST)
+		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
+}
+
+function showPlayer(action$, state) {
+	return action$.ofType(playerActions.SHOW_PLAYER)
+		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
+}
+
 export const playerEpics = [
 	loadSong,
 	playSong,
@@ -262,5 +272,7 @@ export const playerEpics = [
 	deleteSong,
 	initPlayer,
 	audioTimeUpdated,
-	audioVolumeChanged
+	audioVolumeChanged,
+	showPlayer,
+	showPlayList
 ];

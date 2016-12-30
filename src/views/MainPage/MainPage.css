@@ -5,6 +5,10 @@
 	bottom: 53px;
 }
 
+.player_is_hide {
+	bottom: 0;
+}
+
 .main_sub_page {
 	width: auto;
 	position: absolute;

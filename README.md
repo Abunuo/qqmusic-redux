@@ -12,7 +12,7 @@ QQMusic API client with React / Redux / react-router / immutable-js and rxjs .
 
 ### 小结与问题
 
-1. 使用creat-react-app构建项目，真是方便，懒人福音
+1. 使用creat-react-app构建项目，可以快速起手进入代码编写
 2. 使用redux可以方便的对播放状态进行存储与还原
 3. 使用immutable-js可以方便的进行shouldComponentUpdate判断
 4. 实际使用immutable-js并不那么舒服，需要使用get拿到value，不能使用扩展运算符，
@@ -23,7 +23,8 @@ QQMusic API client with React / Redux / react-router / immutable-js and rxjs .
 6. 由redux-sagas替换为redux-observable,只是觉得rxjs更有趣强大
 7. css都是QQ音乐页面的，css in js似乎不错
 8. React全家桶起手比较困难，上手之后还是比较顺手的
-9. ...
+9. 使用不当的的地方，欢迎反馈、建议等~
+10. ...
 
 ### Todos
 

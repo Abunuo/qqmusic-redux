@@ -27,6 +27,18 @@ export class SearchSongPage extends Component {
 		}
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const {loadSearch, location: {query: {q}}} = this.props;
+		const {location: {query: {q: nextQ}}} = nextProps;
+
+		if (q !== nextQ) {
+			loadSearch({
+				...LOAD_SEARCH_SONG_CONFIG,
+				w: nextQ
+			})
+		}
+	}
+
 	handleNavClick(e) {
 		const {loadSearch, location: {query: {q}}, data} = this.props;
 		const value = e.target.getAttribute('value');

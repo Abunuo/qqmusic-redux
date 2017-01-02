@@ -4,7 +4,7 @@ QQMusic API client with React / Redux / react-router / immutable-js and rxjs .
 
 一个基于React全家桶（react、redux、react-router、immutable-js）以及rxjs的QQ音乐单页应用。
 
-[Demo戳我](qqmusic.padabon.com)：http://qqmusic.padabon.com.
+[Demo戳我](http://qqmusic.padabon.com)：http://qqmusic.padabon.com.
 
 1. 安装 npm install
 2. 运行 npm start

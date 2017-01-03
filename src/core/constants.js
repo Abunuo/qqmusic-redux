@@ -61,7 +61,7 @@ export const API_SINGER_MV_CONFIG = {
 	platform: 'yqq'
 };
 
-export const API_SINGER_SIMILAR_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_simsinger.fcg?format=jsonp';
+export const API_SINGER_SIMILAR_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_simsinger.fcg';
 
 
 export const API_ALBUM_URL = '//c.y.qq.com/v8/fcg-bin/fcg_v8_album_info_cp.fcg';

@@ -8,6 +8,8 @@ import {audio} from './audio-service';
 import {fetchSongInfo} from '../api'
 import {localStoreActions} from '../localstore';
 
+const createLocalSaver = state => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS()));
+
 function loadSong(actions$) {
 	return actions$.ofType(playerActions.LOAD_SONG)
 		.do(({payload}) => {
@@ -78,7 +80,7 @@ function playSelectedSong(action$, state) {
 				return Observable.merge(
 					Observable.of(playerActions.loadSong(payload)),
 					Observable.of(playerActions.playSong()),
-					Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS()))
+					createLocalSaver(state)
 				)
 			}
 		});
@@ -211,7 +213,7 @@ function audioEnded(action$, state) {
 
 function deleteSong(action$, state) {
 	return action$.ofType(playerActions.DELETE_SONG)
-		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())));
+		.switchMap(() => createLocalSaver(state));
 }
 
 function initPlayer(action$, state) {
@@ -239,22 +241,22 @@ function initPlayer(action$, state) {
 
 function audioTimeUpdated(action$, state) {
 	return action$.ofType(playerActions.AUDIO_TIME_UPDATED)
-		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
+		.switchMap(() => createLocalSaver(state))
 }
 
 function audioVolumeChanged(action$, state) {
 	return action$.ofType(playerActions.AUDIO_VOLUME_CHANGED)
-		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
+		.switchMap(() => createLocalSaver(state))
 }
 
 function showPlayList(action$, state) {
 	return action$.ofType(playerActions.SHOW_PLAYLIST)
-		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
+		.switchMap(() => createLocalSaver(state))
 }
 
 function showPlayer(action$, state) {
 	return action$.ofType(playerActions.SHOW_PLAYER)
-		.switchMap(() => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS())))
+		.switchMap(() => createLocalSaver(state))
 }
 
 export const playerEpics = [

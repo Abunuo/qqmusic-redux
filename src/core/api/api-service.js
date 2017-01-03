@@ -115,7 +115,7 @@ export const api = {
 				...param
 			},
 			{
-				jsonpCallbackFunction: 'fetchSingerSimilar'
+				jsonpCallbackFunction: 'SingerSimCallback'
 			}
 		)
 	},

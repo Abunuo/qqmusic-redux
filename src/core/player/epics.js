@@ -8,7 +8,7 @@ import {audio} from './audio-service';
 import {fetchSongInfo} from '../api'
 import {localStoreActions} from '../localstore';
 
-const createLocalSaver = store => Observable.of(localStoreActions.saveToLocal('player', store.getState().player.toJS()));
+const savePlayerToLocal = store => localStoreActions.saveToLocal('player', store.getState().player.toJS());
 
 function loadSong(actions$) {
 	return actions$.ofType(playerActions.LOAD_SONG)
@@ -74,7 +74,7 @@ function playSelectedSong(action$, store) {
 				return Observable.merge(
 					Observable.of(playerActions.loadSong(payload)),
 					Observable.of(playerActions.playSong()),
-					createLocalSaver(store)
+					Observable.of(savePlayerToLocal(store))
 				)
 			}
 		});
@@ -203,7 +203,7 @@ function audioEnded(action$, store) {
 
 function deleteSong(action$, store) {
 	return action$.ofType(playerActions.DELETE_SONG)
-		.switchMap(() => createLocalSaver(store));
+		.map(() => savePlayerToLocal(store));
 }
 
 function initPlayer(action$, store) {
@@ -231,22 +231,22 @@ function initPlayer(action$, store) {
 
 function audioTimeUpdated(action$, store) {
 	return action$.ofType(playerActions.AUDIO_TIME_UPDATED)
-		.switchMap(() => createLocalSaver(store))
+		.map(() => savePlayerToLocal(store))
 }
 
 function audioVolumeChanged(action$, store) {
 	return action$.ofType(playerActions.AUDIO_VOLUME_CHANGED)
-		.switchMap(() => createLocalSaver(store))
+		.map(() => savePlayerToLocal(store))
 }
 
 function showPlayList(action$, store) {
 	return action$.ofType(playerActions.SHOW_PLAYLIST)
-		.switchMap(() => createLocalSaver(store))
+		.map(() => savePlayerToLocal(store))
 }
 
 function showPlayer(action$, store) {
 	return action$.ofType(playerActions.SHOW_PLAYER)
-		.switchMap(() => createLocalSaver(store))
+		.map(() => savePlayerToLocal(store))
 }
 
 export const playerEpics = [

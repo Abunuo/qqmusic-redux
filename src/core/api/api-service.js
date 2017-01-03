@@ -170,8 +170,7 @@ export const api = {
 	}
 };
 
-export function dispatch(url, options, {jsonpCallback = 'jsonpCallback', jsonpCallbackFunction = null} = {}) {
-	options = options || {};
+export function dispatch(url, options = {}, {jsonpCallback = 'jsonpCallback', jsonpCallbackFunction = null} = {}) {
 	return fetchJsonp(requestUrl(url, options), {jsonpCallback, jsonpCallbackFunction})
 		.then(response => response.json())
 		.then(json => json);

@@ -8,36 +8,30 @@ import {audio} from './audio-service';
 import {fetchSongInfo} from '../api'
 import {localStoreActions} from '../localstore';
 
-const createLocalSaver = state => Observable.of(localStoreActions.saveToLocal('player', state.getState().player.toJS()));
+const createLocalSaver = store => Observable.of(localStoreActions.saveToLocal('player', store.getState().player.toJS()));
 
 function loadSong(actions$) {
 	return actions$.ofType(playerActions.LOAD_SONG)
-		.do(({payload}) => {
-			audio.load(payload.songid)
-		})
+		.do(({payload: {songid}}) => audio.load(songid))
 		.skip();
 }
 
 function playSong(action$) {
 	return action$.ofType(playerActions.PLAY_SONG)
-		.do(() => {
-			audio.play();
-		})
+		.do(() => audio.play())
 		.skip();
 }
 
 function pauseSong(action$) {
 	return action$.ofType(playerActions.PAUSE_SONG)
-		.do(() => {
-			audio.pause();
-		})
+		.do(() => audio.pause())
 		.skip();
 }
 
-function togglePlay(action$, state) {
+function togglePlay(action$, store) {
 	return action$.ofType(playerActions.TOGGLE_PLAY)
 		.switchMap(() => {
-			if (state.getState().player.get('isPlaying')) {
+			if (store.getState().player.get('isPlaying')) {
 				return Observable.of(playerActions.pauseSong());
 			} else {
 				return Observable.of(playerActions.playSong());
@@ -46,7 +40,7 @@ function togglePlay(action$, state) {
 		});
 }
 
-function playSelectedSong(action$, state) {
+function playSelectedSong(action$, store) {
 	return action$.ofType(playerActions.PLAY_SELECTED_SONG)
 		.map(({payload}) => {
 			if (payload.isMid) {
@@ -80,15 +74,15 @@ function playSelectedSong(action$, state) {
 				return Observable.merge(
 					Observable.of(playerActions.loadSong(payload)),
 					Observable.of(playerActions.playSong()),
-					createLocalSaver(state)
+					createLocalSaver(store)
 				)
 			}
 		});
 }
 
-function playNextSong(action$, state) {
+function playNextSong(action$, store) {
 	return action$.ofType(playerActions.PLAY_NEXT_SONG)
-		.map(() => state.getState().player)
+		.map(() => store.getState().player)
 		.filter((player) => player.get('currentSong') && player.get('playList').size > 1)
 		.switchMap((player) => {
 			const currentSong = player.get('currentSong');
@@ -113,9 +107,9 @@ function playNextSong(action$, state) {
 		});
 }
 
-function playPrevSong(action$, state) {
+function playPrevSong(action$, store) {
 	return action$.ofType(playerActions.PLAY_PREV_SONG)
-		.map(() => state.getState().player)
+		.map(() => store.getState().player)
 		.filter((player) => player.get('currentSong') && player.get('playList').size > 1)
 		.switchMap((player) => {
 			const currentSong = player.get('currentSong');
@@ -142,31 +136,25 @@ function playPrevSong(action$, state) {
 
 function seekTime(action$) {
 	return action$.ofType(playerActions.SEEK_TIME)
-		.do(({payload}) => {
-			audio.seek(payload.time);
-		})
+		.do(({payload: {time}}) => audio.seek(time))
 		.skip();
 }
 
 function setVolume(action$) {
 	return action$.ofType(playerActions.SET_VOLUME)
-		.do(({payload}) => {
-			audio.setVolume(payload.volume);
-		})
+		.do(({payload: {volume}}) => audio.setVolume(volume))
 		.skip();
 }
 
 function mute(action$) {
 	return action$.ofType(playerActions.MUTE)
-		.do(({payload}) => {
-			audio.mute(payload.muted);
-		})
+		.do(({payload: {muted}}) => audio.mute(muted))
 		.skip();
 }
 
-function audioEnded(action$, state) {
+function audioEnded(action$, store) {
 	return action$.ofType(playerActions.AUDIO_ENDED)
-		.map(() => state.getState().player)
+		.map(() => store.getState().player)
 		.switchMap((player) => {
 			const currentSong = player.get('currentSong');
 			const playList = player.get('playList');
@@ -206,20 +194,22 @@ function audioEnded(action$, state) {
 					Observable.of(playerActions.loadSong(song.toJS())),
 					Observable.of(playerActions.playSong())
 				);
+			} else {
+				Observable.empty();
 			}
 
 		});
 }
 
-function deleteSong(action$, state) {
+function deleteSong(action$, store) {
 	return action$.ofType(playerActions.DELETE_SONG)
-		.switchMap(() => createLocalSaver(state));
+		.switchMap(() => createLocalSaver(store));
 }
 
-function initPlayer(action$, state) {
+function initPlayer(action$, store) {
 	return action$.ofType(playerActions.INIT_PLAYER)
 		.switchMap(() => {
-			const player = state.getState().player;
+			const player = store.getState().player;
 			const currentSong = player.get('currentSong');
 			const isPlaying = player.get('isPlaying');
 			const times = player.get('times');
@@ -239,24 +229,24 @@ function initPlayer(action$, state) {
 		})
 }
 
-function audioTimeUpdated(action$, state) {
+function audioTimeUpdated(action$, store) {
 	return action$.ofType(playerActions.AUDIO_TIME_UPDATED)
-		.switchMap(() => createLocalSaver(state))
+		.switchMap(() => createLocalSaver(store))
 }
 
-function audioVolumeChanged(action$, state) {
+function audioVolumeChanged(action$, store) {
 	return action$.ofType(playerActions.AUDIO_VOLUME_CHANGED)
-		.switchMap(() => createLocalSaver(state))
+		.switchMap(() => createLocalSaver(store))
 }
 
-function showPlayList(action$, state) {
+function showPlayList(action$, store) {
 	return action$.ofType(playerActions.SHOW_PLAYLIST)
-		.switchMap(() => createLocalSaver(state))
+		.switchMap(() => createLocalSaver(store))
 }
 
-function showPlayer(action$, state) {
+function showPlayer(action$, store) {
 	return action$.ofType(playerActions.SHOW_PLAYER)
-		.switchMap(() => createLocalSaver(state))
+		.switchMap(() => createLocalSaver(store))
 }
 
 export const playerEpics = [

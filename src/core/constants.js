@@ -99,3 +99,10 @@ export const SINGER_PHOTO_300_URL = '//y.gtimg.cn/music/photo_new/T001R300x300M0
 
 
 export const PLAY_MODE = ['order', 'random', 'single', 'list']; // order 顺序播放 random 随机播放 single 单曲循环 list 列表循环
+
+export const SEARCH_TYPE_MAP = {
+	0: 'song',
+	7: 'lyric',
+	8: 'album',
+	12: 'mv'
+};

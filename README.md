@@ -18,22 +18,19 @@ QQMusic API client with React / Redux / react-router / immutable-js and rxjs .
 4. 实际使用immutable-js并不那么舒服，需要使用get拿到value，不能使用扩展运算符，
 对于需要localStorage本地存储的state，也只能使用Map和List，其他数据类型并不能通
 过fromJS进行还原，容易与原生Object和Array混用，或许seamless-immutable是更好的
-选择，更可能只是我使用姿势不对
+选择
 5. react动画并不能达到理想效果，搜索页的tab切换使用了一下，大概还没领悟正确的使用方法
-6. 由redux-sagas替换为redux-observable，只是觉得rxjs更有趣强大
-7. css都是QQ音乐页面的，css in js似乎不错
-8. React全家桶起手比较困难，上手之后还是比较顺手的
-9. 使用不当的的地方，欢迎反馈、建议等~
-10. ...
+6. 使用redux-observable处理副作用，对rxjs进行简单的使用
+7. 使用不当的的地方，欢迎反馈、建议等~
+8. ...
 
 ### Todos
 
 1. 测试
-2. 服务器端渲染
-3. 使用normalizr
-4. Web Audio Api
-5. 动画
-6. ...
+2. 使用normalizr
+3. Web Audio Api
+4. 动画
+5. ...
 
 
 欢迎各种反馈、建议等~

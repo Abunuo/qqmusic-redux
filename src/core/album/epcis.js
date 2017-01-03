@@ -6,9 +6,7 @@ import {fetchAlbum} from '../../core/api';
 
 export function loadAlbum(action$) {
 	return action$.ofType(albumActions.LOAD_ALBUM)
-		.mergeMap(action => {
-			return fetchAlbum(action.payload)
-		})
+		.switchMap(({payload}) => fetchAlbum(payload));
 }
 
 export const albumEpics = [

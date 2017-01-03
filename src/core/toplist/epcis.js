@@ -8,20 +8,18 @@ import {fetchToplistAll, fetchToplistOne} from '../../core/api';
 
 export function loadToplistAll(action$) {
 	return action$.ofType(toplistActions.LOAD_TOPLIST_ALL)
-		.mergeMap(action => {
-			return fetchToplistAll(action.payload);
-		})
+		.switchMap(({payload}) => fetchToplistAll(payload))
 }
 
-export function loadToplistOne(action$, state) {
+export function loadToplistOne(action$, store) {
 	return action$.ofType(toplistActions.LOAD_TOPLIST_ONE)
-		.mergeMap(action => {
-			if (state.getState().toplist.all) {
-				return fetchToplistOne(action.payload);
+		.switchMap(({payload}) => {
+			if (store.getState().toplist.all) {
+				return fetchToplistOne(payload);
 			} else {
 				return Observable.merge(
 					Observable.of(toplistActions.loadToplistAll()),
-					fetchToplistOne(action.payload)
+					fetchToplistOne(payload)
 				);
 			}
 		})

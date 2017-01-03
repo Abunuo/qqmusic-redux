@@ -6,37 +6,27 @@ import {fetchSingerSong, fetchSingerAlbum, fetchSingerSimilar, fetchSingerData, 
 
 export function loadSingerSong(action$) {
 	return action$.ofType(singerActions.LOAD_SINGER_SONG)
-		.mergeMap(action => {
-			return fetchSingerSong(action.payload)
-		})
+		.switchMap(({payload}) => fetchSingerSong(payload))
 }
 
 export function loadSingerData(action$) {
 	return action$.ofType(singerActions.LOAD_SINGER_DATA)
-		.mergeMap(action => {
-			return fetchSingerData(action.payload)
-		})
+		.switchMap(({payload}) => fetchSingerData(payload))
 }
 
 export function loadSingerAlbum(action$) {
 	return action$.ofType(singerActions.LOAD_SINGER_ALBUM)
-		.mergeMap(action => {
-			return fetchSingerAlbum(action.payload)
-		})
+		.switchMap(({payload}) => fetchSingerAlbum(payload))
 }
 
 export function loadSingerMV(action$) {
 	return action$.ofType(singerActions.LOAD_SINGER_MV)
-		.mergeMap(action => {
-			return fetchSingerMV(action.payload)
-		})
+		.switchMap(({payload}) => fetchSingerMV(payload))
 }
 
 export function loadSingerSimilar(action$) {
 	return action$.ofType(singerActions.LOAD_SINGER_SIMILAR)
-		.mergeMap(action => {
-			return fetchSingerSimilar(action.payload)
-		})
+		.switchMap(({payload}) => fetchSingerSimilar(payload))
 }
 
 export const singerEpics = [

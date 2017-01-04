@@ -11,6 +11,8 @@ import {searchActions, getSearchMV} from '../../../core/search';
 import PageNav from '../../../components/PageNav';
 import {LOAD_SEARCH_MV_CONFIG} from '../../../core/constants';
 
+import './SearchMVPage.css';
+
 export class SearchMVPage extends Component {
 
 	componentWillMount() {

@@ -26,6 +26,8 @@ class Player extends React.Component {
 		this.handlePlayModeClick = this.handlePlayModeClick.bind(this);
 		this.handlePlayListClick = this.handlePlayListClick.bind(this);
 		this.handlePlayerClick = this.handlePlayerClick.bind(this);
+		this.handleMouseOver = this.handleMouseOver.bind(this);
+		this.handleMouseOut = this.handleMouseOut.bind(this);
 	}
 
 	handleTimeClick(event) {
@@ -58,11 +60,26 @@ class Player extends React.Component {
 	}
 
 	handlePlayerClick() {
-		const {showPlayer, player, showPlayList} = this.props;
-		const playerIsShow = player.get('playerIsShow');
-		showPlayer(!playerIsShow);
-		if (playerIsShow) {
-			showPlayList(false);
+		const {lockPlayer, player} = this.props;
+		const playerIsLocked = player.get('playerIsLocked');
+		lockPlayer(!playerIsLocked);
+	}
+
+	handleMouseOver() {
+		const {player, showPlayer} = this.props;
+		const playerIsLocked = player.get('playerIsLocked');
+		const playerIsShow = player.get('playerIsShow');console.log('over')
+		if (!playerIsLocked) {
+			!playerIsShow && showPlayer(true);
+		}
+	}
+
+	handleMouseOut() {
+		const {player, showPlayer} = this.props;
+		const playerIsLocked = player.get('playerIsLocked');
+		const playerIsShow = player.get('playerIsShow');console.log('out')
+		if (!playerIsLocked) {
+			playerIsShow && showPlayer(false);
 		}
 	}
 
@@ -96,12 +113,13 @@ class Player extends React.Component {
 			volume,
 			muted,
 			playListIsShow,
-			playerIsShow
+			playerIsShow,
+			playerIsLocked
 		} = player.toJS();
 
 		return (
-			<div className={`player_wrap ${playerIsShow ? '' : 'player_hide'}`}>
-				<div className="player_toggle_btn" onClick={this.handlePlayerClick}>==</div>
+			<div className={`player_wrap ${playerIsShow ? '' : 'player_hide'}`} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
+				<div className="player_toggle_btn" onClick={this.handlePlayerClick}>{playerIsLocked ? '==' : '∧∨'}</div>
 				<div className="player">
 					<span className="btn_big_prev" onClick={playPrevSong}/>
 					{
@@ -180,6 +198,7 @@ const mapDispatchToProps = {
 	playSelectedSong: playerActions.playSelectedSong,
 	showPlayList: playerActions.showPlayList,
 	showPlayer: playerActions.showPlayer,
+	lockPlayer: playerActions.lockPlayer,
 	addSongList: playerActions.addSongList
 };
 

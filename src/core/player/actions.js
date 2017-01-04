@@ -22,6 +22,7 @@ export const playerActions = {
 	SWITCH_PLAYMODE: 'SWITCH_PLAYMODE',
 	SHOW_PLAYLIST: 'SHOW_PLAYLIST',
 	SHOW_PLAYER: 'SHOW_PLAYER',
+	LOCK_PLAYER: 'LOCK_PLAYER',
 	DELETE_SONG: 'DELETE_SONG',
 	ADD_SONGLIST: 'ADD_SONGLIST',
 
@@ -154,6 +155,13 @@ export const playerActions = {
 
 	showPlayer: bool => ({
 		type: playerActions.SHOW_PLAYER,
+		payload: {
+			bool
+		}
+	}),
+
+	lockPlayer: bool => ({
+		type: playerActions.LOCK_PLAYER,
 		payload: {
 			bool
 		}

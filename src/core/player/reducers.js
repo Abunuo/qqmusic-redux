@@ -14,7 +14,7 @@ const PlayerTimesState = {
 	percentCompleted: '0%'
 };
 
-const PlayerState = {
+export const PlayerState = {
 	isPlaying: false,
 	volume: 1,
 	times: new Map(PlayerTimesState),
@@ -23,7 +23,8 @@ const PlayerState = {
 	currentSong: null,
 	muted: false,
 	playListIsShow: false,
-	playerIsShow: true
+	playerIsShow: true,
+	playerIsLocked: true
 };
 
 export function playerReducer(state = new Map(PlayerState), {payload, type}) {
@@ -100,6 +101,9 @@ export function playerReducer(state = new Map(PlayerState), {payload, type}) {
 
 		case playerActions.SHOW_PLAYER:
 			return state.set('playerIsShow', payload.bool);
+
+		case playerActions.LOCK_PLAYER:
+			return state.set('playerIsLocked', payload.bool);
 
 		case playerActions.DELETE_SONG:
 			index = playList.findIndex((value) => value.get('songid') === payload.songid);

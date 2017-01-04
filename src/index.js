@@ -8,6 +8,7 @@ import {playerActions} from './core/player';
 
 import Root from './views/Root';
 import configureStore from './core/store';
+import {PlayerState} from './core/player';
 
 import './index.css';
 
@@ -17,6 +18,7 @@ const player = localStorage.getItem('player');
 export const store = configureStore(
 	player
 		? {player: fromJS({
+			...PlayerState,
 			...JSON.parse(localStorage.getItem('player')),
 			isPlaying: false
 		})}

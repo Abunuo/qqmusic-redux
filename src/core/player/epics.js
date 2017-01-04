@@ -244,8 +244,8 @@ function showPlayList(action$, store) {
 		.map(() => savePlayerToLocal(store))
 }
 
-function showPlayer(action$, store) {
-	return action$.ofType(playerActions.SHOW_PLAYER)
+function lockPlayer(action$, store) {
+	return action$.ofType(playerActions.LOCK_PLAYER)
 		.map(() => savePlayerToLocal(store))
 }
 
@@ -265,6 +265,6 @@ export const playerEpics = [
 	initPlayer,
 	audioTimeUpdated,
 	audioVolumeChanged,
-	showPlayer,
-	showPlayList
+	showPlayList,
+	lockPlayer
 ];
